@@ -192,7 +192,8 @@ bool piove = true;
 
 if (!piove) {
     cout << "Non piove, posso uscire!" << endl;
-} else {
+}
+else {
     cout << "Piove, prendo l'ombrello." << endl;
 }
 ```
@@ -285,5 +286,5 @@ int main() {
 ```
 Credenziali non valide. Riprova.
 ```
-
+> [!WARNING]
 > NB: Un `if` non ha per forza bisogno di un `else` ma un `else` deve sempre avere un `if` prima
