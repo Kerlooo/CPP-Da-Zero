@@ -10,11 +10,12 @@ Volevo creare un percorso chiaro, semplice e accessibile, che spiegasse i concet
 Il mio obiettivo è aiutare chi inizia da zero a costruire una base solida e a sviluppare una vera comprensione della programmazione in C++.
 
 ## Capitoli:
-1. Introduzione a C++
-2. Come si strutturano i programmi
-3. Tipi di variabili
-4. Input e Output
-5. If Else
+1. [Introduzione a C++](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/1.%20Introduzione%20a%20C%2B%2B/introduzione.md)
+2. [Come si strutturano i programmi](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/2.%20Come%20si%20strutturano%20i%20programmi/struttura.md)
+3. [Tipi di variabili](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/3.%20Tipi%20di%20variabili/variabili.md)
+4. [Input e Output](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/4.%20Input%20e%20Output/I_O.md)
+5. [If Else](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/if_else.md)
+5.1. [Operatore ternario](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/operatore_ternario.md)
 
 ## Licenza
 
