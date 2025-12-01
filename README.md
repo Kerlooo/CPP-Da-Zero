@@ -16,3 +16,17 @@ Il mio obiettivo è aiutare chi inizia da zero a costruire una base solida e a s
 4. Input e Output
 5. If Else
 
+## Licenza
+
+Questa guida è distribuita sotto la licenza **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+
+Sei libero di:
+- **Condividere** — riprodurre, distribuire, comunicare al pubblico, esporre in pubblico, rappresentare, eseguire e recitare questo materiale con qualsiasi mezzo e formato.
+- **Modificare** — remixare, trasformare il materiale e basarti su di esso per le tue opere per qualsiasi fine, anche commerciale.
+
+Alle seguenti condizioni:
+- **Attribuzione** — Devi riconoscere una menzione di paternità adeguata, fornire un link alla licenza e indicare se sono state effettuate delle modifiche.
+
+Per maggiori dettagli, vedi il file [LICENSE](LICENSE) o visita [creativecommons.org](https://creativecommons.org/licenses/by/4.0/).
+
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
