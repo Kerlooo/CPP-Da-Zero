@@ -14,8 +14,7 @@ Il mio obiettivo è aiutare chi inizia da zero a costruire una base solida e a s
 2. [Come si strutturano i programmi](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/2.%20Come%20si%20strutturano%20i%20programmi/struttura.md)
 3. [Tipi di variabili](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/3.%20Tipi%20di%20variabili/variabili.md)
 4. [Input e Output](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/4.%20Input%20e%20Output/I_O.md)
-5. [If Else](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/if_else.md)
-5.1. [Operatore ternario](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/operatore_ternario.md)
+5. [If Else](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/if_else.md) e [Operatore ternario](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/operatore_ternario.md) (**sono due link separati**)
 
 ## Licenza
 
