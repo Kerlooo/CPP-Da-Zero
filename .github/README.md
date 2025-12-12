@@ -16,6 +16,11 @@ Il mio obiettivo è aiutare chi inizia da zero a costruire una base solida e a s
 4. [Input e Output](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/4.%20Input%20e%20Output/I_O.md)
 5. [If Else](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/if_else.md) e [Operatore ternario](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/operatore_ternario.md) (**sono due link separati**)
 
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Kerlooo/CPP-Da-Zero&type=date&legend=top-left)](https://www.star-history.com/#Kerlooo/CPP-Da-Zero&type=date&legend=top-left)
+
 ## Licenza
 
 Questa guida è distribuita sotto la licenza **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
