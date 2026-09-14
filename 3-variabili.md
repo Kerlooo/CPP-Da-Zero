@@ -138,3 +138,7 @@ int 1numero;        //  Inizia con un numero
 int nome utente;    //  Contiene uno spazio
 float prezzo-totale; //  Contiene un trattino
 ```
+
+---
+
+⬅️ [Precedente: Come si strutturano i programmi](2-struttura.md) | [📚 Indice](.github/README.md) | [Successivo: Input e Output](4-input-output.md) ➡️

@@ -288,3 +288,7 @@ Credenziali non valide. Riprova.
 ```
 > [!WARNING]
 > NB: Un `if` non ha per forza bisogno di un `else` ma un `else` deve sempre avere un `if` prima
+
+---
+
+⬅️ [Precedente: Input e Output](4-input-output.md) | [📚 Indice](.github/README.md) | [Successivo: Operatore ternario](5-operatore-ternario.md) ➡️

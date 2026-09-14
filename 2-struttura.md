@@ -59,3 +59,7 @@ int main() {
     return 0;
 }
 ```
+
+---
+
+⬅️ [Precedente: Introduzione a C++](1-introduzione.md) | [📚 Indice](.github/README.md) | [Successivo: Tipi di variabili](3-variabili.md) ➡️

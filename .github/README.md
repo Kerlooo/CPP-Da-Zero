@@ -9,12 +9,16 @@ Ho realizzato questa guida per permettere a chiunque di imparare le basi del C++
 Volevo creare un percorso chiaro, semplice e accessibile, che spiegasse i concetti fondamentali del linguaggio passo dopo passo, con esempi comprensibili e senza dare nulla per scontato.
 Il mio obiettivo è aiutare chi inizia da zero a costruire una base solida e a sviluppare una vera comprensione della programmazione in C++.
 
+## Come è scritta
+Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di quello che studio e imparo.
+[Claude Code](https://claude.com/claude-code) mi aiuta a migliorarli: revisione dei testi, organizzazione dei capitoli e navigazione tra le pagine.
+
 ## Capitoli:
-1. [Introduzione a C++](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/1.%20Introduzione%20a%20C%2B%2B/introduzione.md)
-2. [Come si strutturano i programmi](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/2.%20Come%20si%20strutturano%20i%20programmi/struttura.md)
-3. [Tipi di variabili](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/3.%20Tipi%20di%20variabili/variabili.md)
-4. [Input e Output](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/4.%20Input%20e%20Output/I_O.md)
-5. [If Else](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/if_else.md) e [Operatore ternario](https://github.com/Kerlooo/CPP-Da-Zero/blob/main/5.%20If%20Else/operatore_ternario.md) (**sono due link separati**)
+1. [Introduzione a C++](../1-introduzione.md)
+2. [Come si strutturano i programmi](../2-struttura.md)
+3. [Tipi di variabili](../3-variabili.md)
+4. [Input e Output](../4-input-output.md)
+5. [If Else](../5-if-else.md) e [Operatore ternario](../5-operatore-ternario.md) (**sono due link separati**)
 
 
 ## Star History
@@ -32,6 +36,6 @@ Sei libero di:
 Alle seguenti condizioni:
 - **Attribuzione** — Devi riconoscere una menzione di paternità adeguata, fornire un link alla licenza e indicare se sono state effettuate delle modifiche.
 
-Per maggiori dettagli, vedi il file [LICENSE](LICENSE) o visita [creativecommons.org](https://creativecommons.org/licenses/by/4.0/).
+Per maggiori dettagli, vedi il file [LICENCE](LICENCE) o visita [creativecommons.org](https://creativecommons.org/licenses/by/4.0/).
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)

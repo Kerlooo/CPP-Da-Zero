@@ -29,3 +29,7 @@ C++ è un linguaggio di programmazione compilato, general-purpose, creato negli 
 | **Controllo** | Totale sulla memoria | Gestione automatica |
 | **Curva di apprendimento** | Difficile | Veloce |
 | **Performance** | Ideale per programmi veloci e sicuri | Ideale per scripting, AI, data science |
+
+---
+
+[📚 Indice](.github/README.md) | [Successivo: Come si strutturano i programmi](2-struttura.md) ➡️
