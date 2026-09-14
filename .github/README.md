@@ -14,11 +14,16 @@ Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di q
 [Claude Code](https://claude.com/claude-code) mi aiuta a migliorarli: revisione dei testi, organizzazione dei capitoli e navigazione tra le pagine.
 
 ## Capitoli:
+0. [Il compilatore: da codice a programma](../0-compilatore.md)
 1. [Introduzione a C++](../1-introduzione.md)
 2. [Come si strutturano i programmi](../2-struttura.md)
 3. [Tipi di variabili](../3-variabili.md)
 4. [Input e Output](../4-input-output.md)
-5. [If Else](../5-if-else.md) e [Operatore ternario](../5-operatore-ternario.md) (**sono due link separati**)
+5. [Operatori aritmetici](../5-operatori-aritmetici.md)
+6. [If Else](../6-if-else.md) e [Operatore ternario](../6-operatore-ternario.md) (**sono due link separati**)
+7. [Switch](../7-switch.md)
+8. [Ciclo while e do-while](../8-ciclo-while.md)
+9. [Ciclo for](../9-ciclo-for.md) e [Break e Continue](../9-break-continue.md) (**sono due link separati**)
 
 
 ## Star History

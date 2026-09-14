@@ -32,4 +32,4 @@ C++ è un linguaggio di programmazione compilato, general-purpose, creato negli 
 
 ---
 
-[📚 Indice](.github/README.md) | [Successivo: Come si strutturano i programmi](2-struttura.md) ➡️
+⬅️ [Precedente: Il compilatore](0-compilatore.md) | [📚 Indice](.github/README.md) | [Successivo: Come si strutturano i programmi](2-struttura.md) ➡️

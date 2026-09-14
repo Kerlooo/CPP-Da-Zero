@@ -291,4 +291,4 @@ Credenziali non valide. Riprova.
 
 ---
 
-⬅️ [Precedente: Input e Output](4-input-output.md) | [📚 Indice](.github/README.md) | [Successivo: Operatore ternario](5-operatore-ternario.md) ➡️
+⬅️ [Precedente: Operatori aritmetici](5-operatori-aritmetici.md) | [📚 Indice](.github/README.md) | [Successivo: Operatore ternario](6-operatore-ternario.md) ➡️

@@ -173,4 +173,4 @@ int main() {
 
 ---
 
-⬅️ [Precedente: Tipi di variabili](3-variabili.md) | [📚 Indice](.github/README.md) | [Successivo: If Else](5-if-else.md) ➡️
+⬅️ [Precedente: Tipi di variabili](3-variabili.md) | [📚 Indice](.github/README.md) | [Successivo: Operatori aritmetici](5-operatori-aritmetici.md) ➡️
