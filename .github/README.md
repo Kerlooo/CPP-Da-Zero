@@ -24,6 +24,9 @@ Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di q
 7. [Switch](../7-switch.md)
 8. [Ciclo while e do-while](../8-ciclo-while.md)
 9. [Ciclo for](../9-ciclo-for.md) e [Break e Continue](../9-break-continue.md) (**sono due link separati**)
+10. [Funzioni](../10-funzioni.md)
+11. [Array](../11-array.md)
+12. [Stringhe](../12-stringhe.md)
 
 
 ## Star History

@@ -334,4 +334,4 @@ int main() {
 
 ---
 
-⬅️ [Precedente: Ciclo for](9-ciclo-for.md) | [📚 Indice](.github/README.md)
+⬅️ [Precedente: Ciclo for](9-ciclo-for.md) | [📚 Indice](.github/README.md) | [Successivo: Funzioni](10-funzioni.md) ➡️

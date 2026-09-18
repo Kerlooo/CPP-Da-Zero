@@ -71,10 +71,102 @@ int main() {
 }
 ```
 
-> Nota: `(double)x` si chiama **cast**: converte temporaneamente il valore di `x` in `double` solo per quel calcolo. La variabile `x` resta un `int`.
+> Nota: `(double)x` si chiama **cast**: converte temporaneamente il valore di `x` in `double` solo per quel calcolo. La variabile `x` resta un `int`. Alla sezione [Conversioni di Tipo](#conversioni-di-tipo) vedremo come funzionano nel dettaglio.
 
 > [!WARNING]
 > Dividere un intero per zero (`x / 0`) fa **crashare** il programma. Prima di dividere, controlla sempre che il divisore non sia zero.
+
+## Conversioni di Tipo
+
+Nell'esempio sopra abbiamo scritto `(double)x` per ottenere una divisione decimale. Quella operazione si chiama **conversione di tipo**, o **cast**: prendere un valore di un tipo e usarlo come se fosse di un altro tipo.
+
+Le conversioni sono di due famiglie: quelle che fa il compilatore da solo e quelle che chiedi tu esplicitamente.
+
+### Conversioni Implicite
+
+Quando in un'espressione compaiono tipi diversi, il compilatore converte automaticamente il valore "più piccolo" verso quello "più grande", senza che tu debba scrivere nulla:
+
+```cpp
+int interi = 5;
+double decimali = 2.5;
+
+double risultato = interi + decimali;   // interi diventa 5.0, risultato vale 7.5
+```
+
+Questo è il motivo per cui `7.0 / 2` dà `3.5`: il `2` viene convertito in `2.0` prima della divisione.
+
+La conversione automatica avviene anche nel verso opposto, ed è lì che nascono i problemi. Assegnare un `double` a un `int` **tronca** la parte decimale: non arrotonda, la butta via.
+
+```cpp
+int troncato = 9.99;      // vale 9, non 10
+int negativo = -3.7;      // vale -3, non -4
+```
+
+> Nota: molti compilatori segnalano questi casi con un *warning*, non con un errore. Il programma compila lo stesso, ma il dato che hai perso non torna più indietro.
+
+### Conversioni Esplicite: `static_cast`
+
+Quando la conversione la vuoi tu, la scrivi in modo esplicito. C++ mette a disposizione `static_cast`:
+
+```cpp
+static_cast<tipo_destinazione>(valore)
+```
+
+**Esempio:**
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int voti_totali = 17;
+    int numero_esami = 4;
+
+    double media = static_cast<double>(voti_totali) / numero_esami;
+
+    cout << "Media: " << media << endl;   // Media: 4.25
+
+    return 0;
+}
+```
+
+Basta convertire **uno solo** dei due operandi: da quel momento la divisione diventa decimale, e il compilatore converte l'altro da solo.
+
+Il cast non modifica la variabile di partenza. `voti_totali` resta un `int` che vale `17`: la conversione produce un valore temporaneo, usato solo per quel calcolo.
+
+### `static_cast` o `(tipo)valore`?
+
+Le due scritture fanno la stessa cosa in questo contesto:
+
+```cpp
+double a = (double)voti_totali / numero_esami;                 // stile C
+double b = static_cast<double>(voti_totali) / numero_esami;    // stile C++
+```
+
+La prima è ereditata dal C ed è più corta. La seconda è quella consigliata in C++ moderno, per due motivi: si vede a colpo d'occhio anche in mezzo a un'espressione lunga, e il compilatore rifiuta le conversioni davvero insensate invece di provarci comunque.
+
+Troverai la forma `(double)x` in tantissimo codice esistente, quindi va conosciuta. Nel codice che scrivi tu, preferisci `static_cast`.
+
+### Il Caso Classico: la Percentuale
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int risposte_corrette = 7;
+    int domande_totali = 9;
+
+    double percentuale_sbagliata = (risposte_corrette / domande_totali) * 100;
+    double percentuale_corretta = (static_cast<double>(risposte_corrette) / domande_totali) * 100;
+
+    cout << "Sbagliata: " << percentuale_sbagliata << endl;   // 0
+    cout << "Corretta:  " << percentuale_corretta << endl;    // 77.7778
+
+    return 0;
+}
+```
+
+Nella prima riga la divisione `7 / 9` avviene tra interi e vale `0`. Moltiplicare `0` per `100` dà `0`: il cast arrivato dopo, sul risultato, non serve a niente. La conversione va fatta **prima** della divisione, non dopo.
 
 ## L'Operatore Modulo `%`
 
@@ -224,7 +316,7 @@ int main() {
     int area = base * altezza;
 
     // La divisione tra interi taglierebbe i decimali: usiamo un double
-    double rapporto = (double)base / altezza;
+    double rapporto = static_cast<double>(base) / altezza;
 
     cout << "Perimetro: " << perimetro << endl;
     cout << "Area: " << area << endl;
