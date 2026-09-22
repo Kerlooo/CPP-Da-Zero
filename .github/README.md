@@ -27,6 +27,8 @@ Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di q
 10. [Funzioni](../10-funzioni.md)
 11. [Array](../11-array.md)
 12. [Stringhe](../12-stringhe.md)
+13. [Riferimenti](../13-riferimenti.md)
+14. [Puntatori](../14-puntatori.md)
 
 
 ## Star History

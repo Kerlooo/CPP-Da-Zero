@@ -300,6 +300,132 @@ int main() {
 
 > Nota: nel dubbio, usa le parentesi. Non rallentano il programma e rendono il codice leggibile.
 
+## Funzioni Matematiche: `<cmath>`
+
+Gli operatori coprono le quattro operazioni, ma non bastano per una radice quadrata o una potenza. Per quelle C++ mette a disposizione una libreria di funzioni già pronte, da includere in cima al file:
+
+```cpp
+#include <cmath>
+```
+
+### Le Funzioni più Usate
+
+| Funzione      | Cosa calcola                        | Esempio          | Risultato |
+| ------------- | ----------------------------------- | ---------------- | --------- |
+| `sqrt(x)`     | Radice quadrata                     | `sqrt(16)`       | `4`       |
+| `pow(x, y)`   | `x` elevato a `y`                   | `pow(2, 10)`     | `1024`    |
+| `abs(x)`      | Valore assoluto (toglie il segno)   | `abs(-7.5)`      | `7.5`     |
+| `round(x)`    | Arrotonda all'intero più vicino      | `round(3.6)`     | `4`       |
+| `floor(x)`    | Arrotonda per difetto                | `floor(3.9)`     | `3`       |
+| `ceil(x)`     | Arrotonda per eccesso                | `ceil(3.1)`      | `4`       |
+| `fmod(x, y)`  | Resto della divisione tra decimali   | `fmod(7.5, 2.0)` | `1.5`     |
+| `sin(x)` `cos(x)` `tan(x)` | Funzioni trigonometriche (in radianti) | `sin(0)` | `0` |
+| `log(x)`      | Logaritmo naturale                   | `log(1)`         | `0`       |
+| `log10(x)`    | Logaritmo in base 10                 | `log10(1000)`    | `3`       |
+| `exp(x)`      | `e` elevato a `x`                    | `exp(0)`         | `1`       |
+
+### Esempio
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    cout << sqrt(25) << endl;        // 5
+    cout << pow(3, 4) << endl;       // 81
+    cout << abs(-12.5) << endl;      // 12.5
+    cout << round(7.5) << endl;      // 8
+    cout << floor(7.9) << endl;      // 7
+    cout << ceil(7.1) << endl;       // 8
+
+    return 0;
+}
+```
+
+> Nota: queste funzioni restituiscono quasi sempre un `double`, anche quando il risultato sembra intero. `sqrt(25)` vale `5`, ma è il `double` `5.0`: se lo assegni a un `int`, la parte decimale viene troncata come visto nella sezione sulle conversioni.
+
+### `pow` non è una Scorciatoia
+
+`pow(x, 2)` funziona, ma per un semplice quadrato `x * x` è più rapido da leggere e da calcolare. Riserva `pow` agli esponenti che non conosci in anticipo o che non sono piccoli numeri interi.
+
+```cpp
+double lato = 4.0;
+
+double area1 = lato * lato;     // Preferibile
+double area2 = pow(lato, 2);    // Stesso risultato, senza vantaggi
+```
+
+### Arrotondare Davvero
+
+Nella sezione sulle conversioni hai visto che assegnare un `double` a un `int` **tronca**. Se quello che vuoi è un arrotondamento vero, `round` va usato **prima** del cast:
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double valore = 7.8;
+
+    int troncato = static_cast<int>(valore);            // 7  -> butta via il decimale
+    int arrotondato = static_cast<int>(round(valore));  // 8  -> arrotonda, poi converte
+
+    cout << "Troncato:    " << troncato << endl;
+    cout << "Arrotondato: " << arrotondato << endl;
+
+    return 0;
+}
+```
+
+**Output:**
+```
+Troncato:    7
+Arrotondato: 8
+```
+
+### Pi Greco
+
+C++ standard **non** definisce una costante per pi greco. Su alcuni compilatori esiste `M_PI`, ma non è garantita: se ti serve, dichiarala tu.
+
+```cpp
+const double PI = 3.14159265358979;
+
+double raggio = 5.0;
+double area = PI * pow(raggio, 2);      // 78.5398
+```
+
+> Nota: le funzioni trigonometriche lavorano in **radianti**, non in gradi. Per convertire: `radianti = gradi * PI / 180`.
+
+### Esempio: Teorema di Pitagora
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double cateto1, cateto2;
+
+    cout << "Inserisci i due cateti: ";
+    cin >> cateto1 >> cateto2;
+
+    double ipotenusa = sqrt(pow(cateto1, 2) + pow(cateto2, 2));
+
+    cout << "Ipotenusa: " << ipotenusa << endl;
+
+    return 0;
+}
+```
+
+**Esecuzione:**
+```
+Inserisci i due cateti: 3 4
+Ipotenusa: 5
+```
+
+> Nota: `min` e `max`, che spesso si cercano qui, non stanno in `<cmath>` ma in `<algorithm>`. Si usano come `max(a, b)` e restituiscono il maggiore o il minore dei due valori.
+
 ## Esempio Completo
 
 ```cpp

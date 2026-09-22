@@ -109,7 +109,7 @@ Per sapere se una stringa è vuota, `empty()` è più chiaro di un confronto con
 string vuota;
 
 if (vuota.empty()) {
-    cout << "La stringa è vuota" << endl;
+    cout << "Stringa vuota" << endl;
 }
 ```
 
@@ -249,7 +249,7 @@ Mescolare i due è la fonte di errori più comune con le stringhe:
 int eta;
 string nome;
 
-cout << "Età: ";
+cout << "Eta: ";
 cin >> eta;
 
 cout << "Nome: ";
@@ -270,7 +270,7 @@ int main() {
     int eta;
     string nome;
 
-    cout << "Età: ";
+    cout << "Eta: ";
     cin >> eta;
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');    // Scarta il resto della riga
@@ -492,4 +492,4 @@ Invertita: ittut a oaiC
 
 ---
 
-⬅️ [Precedente: Array](11-array.md) | [📚 Indice](.github/README.md)
+⬅️ [Precedente: Array](11-array.md) | [📚 Indice](.github/README.md) | [Successivo: Riferimenti](13-riferimenti.md) ➡️

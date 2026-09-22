@@ -78,7 +78,7 @@ int main() {
     cin >> numero;
     tipo = (numero % 2 == 0) ? "Pari" : "Dispari";
     
-    cout << "Il numero " << numero << " è " << tipo << endl;
+    cout << "Il numero " << numero << " e' " << tipo << endl;
     return 0;
 }
 ```
@@ -117,7 +117,7 @@ int main() {
     
     int massimo = (x > y) ? x : y;
     
-    cout << "Il numero piu grande è: " << massimo << endl;
+    cout << "Il numero piu grande e': " << massimo << endl;
     
     return 0;
 }
@@ -125,7 +125,7 @@ int main() {
 
 **Output:**
 ```
-Il numero piu grande è: 20
+Il numero piu grande e': 20
 ```
 
 ## Operatore Ternario Annidato

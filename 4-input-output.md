@@ -1,8 +1,9 @@
 # Input/Output in C++
 
 L'Input/Output (I/O) è fondamentale in C++. Permette al programma di:
-- **Output**: Visualizzare messaggi e dati sullo schermo
-- **Input**: Ricevere dati dall'utente tramite tastiera
+- **Output**: Visualizzare messaggi e dati sullo schermo (`cout`)
+- **Errori**: Segnalare che qualcosa non va, su un canale separato (`cerr`)
+- **Input**: Ricevere dati dall'utente tramite tastiera (`cin`)
 
 ## Output: `cout`
 
@@ -88,7 +89,7 @@ int main() {
     
     cout << "Nome: " << nome << endl;
     cout << "Eta: " << eta << endl;
-    cout << "Il mio nome è " << nome << " e ho " << eta << " anni" << endl;
+    cout << "Mi chiamo " << nome << " e ho " << eta << " anni" << endl;
     
     return 0;
 }
@@ -98,8 +99,85 @@ int main() {
 ```
 Nome: Marco
 Eta: 25
-Il mio nome è Marco e ho 25 anni
+Mi chiamo Marco e ho 25 anni
 ```
+
+## Output degli Errori: `cerr`
+
+`cout` non è l'unico canale di uscita. C++ mette a disposizione anche `cerr` (*character error*), pensato per i **messaggi di errore** e le segnalazioni di problemi.
+
+Si usa esattamente come `cout`, con lo stesso operatore `<<`:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Messaggio normale" << endl;
+    cerr << "Messaggio di errore" << endl;
+
+    return 0;
+}
+```
+
+Sullo schermo il risultato sembra identico: entrambe le righe compaiono nel terminale. La differenza non si vede, ma c'è.
+
+### Perché Due Canali Diversi
+
+Ogni programma ha due uscite separate:
+
+| Canale         | Nome tecnico        | A cosa serve                              |
+| -------------- | ------------------- | ----------------------------------------- |
+| `cout`         | standard output     | Il risultato normale del programma        |
+| `cerr`         | standard error      | Errori, avvisi, diagnostica               |
+
+Tenerli separati permette a chi usa il programma di **dividere** i due flussi. Da terminale puoi salvare in un file solo il risultato, lasciando che gli errori restino visibili a schermo:
+
+```
+./programma > risultato.txt
+```
+
+Con questo comando, tutto ciò che è passato da `cout` finisce dentro `risultato.txt`, mentre quello scritto con `cerr` continua a comparire sullo schermo. Se avessi stampato gli errori con `cout`, si sarebbero mescolati ai dati veri, finendo nel file insieme a loro.
+
+### `cerr` non Aspetta
+
+C'è una seconda differenza, più sottile. `cout` accumula il testo in una zona di memoria temporanea (il **buffer**) e lo scrive tutto insieme quando conviene, perché è più efficiente. `cerr` invece scrive **subito**, senza accumulare nulla.
+
+Questo conta molto quando un programma va in crash: il messaggio scritto con `cout` potrebbe essere ancora nel buffer e andare perso, mentre quello scritto con `cerr` è già uscito. Per segnalare un errore è esattamente il comportamento che vuoi.
+
+### Esempio Completo
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int numeratore, denominatore;
+
+    cout << "Inserisci numeratore e denominatore: ";
+    cin >> numeratore >> denominatore;
+
+    if (denominatore == 0) {
+        cerr << "Errore: divisione per zero" << endl;
+        return 1;   // valore diverso da 0 = il programma è terminato male
+    }
+
+    cout << "Risultato: " << (numeratore / denominatore) << endl;
+
+    return 0;
+}
+```
+
+Nota il `return 1` accanto al messaggio di errore: per convenzione `main` restituisce `0` quando tutto è andato bene e un valore diverso da zero quando qualcosa è fallito. Il messaggio su `cerr` spiega il problema alla persona, il valore di ritorno lo segnala al sistema operativo.
+
+### Quando Usare l'Uno o l'Altro
+
+- **`cout`** — tutto ciò che è il prodotto del programma: risultati, tabelle, richieste all'utente.
+- **`cerr`** — tutto ciò che segnala che qualcosa non va: input non valido, file mancante, divisione per zero.
+
+La regola pratica: chiediti se quel testo servirebbe ancora a chi salva l'output in un file. Se la risposta è no, va su `cerr`.
+
+> Nota: esiste anche `clog`, un terzo canale destinato ai messaggi di diagnostica (log). Scrive sullo stesso standard error di `cerr`, ma usa un buffer come `cout`. Nella pratica da principiante ti bastano `cout` e `cerr`.
 
 ## Input: `cin`
 

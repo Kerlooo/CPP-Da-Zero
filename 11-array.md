@@ -287,7 +287,7 @@ int main() {
         }
     }
 
-    cout << "Voto più alto: " << massimo << endl;   // 30
+    cout << "Voto massimo: " << massimo << endl;   // 30
 
     return 0;
 }
