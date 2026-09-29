@@ -141,8 +141,8 @@ int main() {
 I parametri si separano con la virgola e **ognuno vuole il suo tipo**:
 
 ```cpp
-int somma(int a, int b) { }       // Corretto
-int somma(int a, b) { }           // ERRORE: manca il tipo di b
+int somma(int a, int b) { return a + b; }     // Corretto
+int somma(int a, b) { return a + b; }         // ERRORE: manca il tipo di b
 ```
 
 Gli argomenti devono corrispondere ai parametri per **numero**, **ordine** e **tipo**:
@@ -299,6 +299,15 @@ void esempio(int a, int b = 5);     // Corretto
 void esempio(int a = 5, int b);     // ERRORE: il default non può precedere un parametro senza default
 ```
 
+> Nota: se usi un prototipo, il valore di default va scritto **solo nel prototipo**, non anche nella definizione. Ripeterlo in entrambi i posti è un errore di compilazione.
+> ```cpp
+> void stampaLinea(char simbolo = '-', int lunghezza = 20);    // Prototipo: default qui
+>
+> void stampaLinea(char simbolo, int lunghezza) {              // Definizione: senza default
+>     // ...
+> }
+> ```
+
 ## Overload: Stesso Nome, Parametri Diversi
 
 C++ permette di dare lo **stesso nome** a più funzioni, purché abbiano parametri diversi per numero o tipo. Si chiama **overload** (sovraccarico).
@@ -329,6 +338,8 @@ int main() {
 ```
 
 Il compilatore sceglie la versione giusta guardando gli argomenti della chiamata. Senza overload dovresti inventare nomi come `sommaInteri`, `sommaDecimali`, `sommaTre`.
+
+Attenzione però alle chiamate "a metà strada". Con le tre versioni qui sopra, `somma(1, 2.5)` **non compila**: il primo argomento è un `int`, il secondo un `double`, e nessuna versione corrisponde esattamente. Il compilatore potrebbe convertire in due modi diversi, non sa quale scegliere e segnala la chiamata come *ambigua*. La soluzione è passare argomenti dello stesso tipo: `somma(1.0, 2.5)`.
 
 > [!WARNING]
 > Il tipo restituito **non** basta a distinguere due funzioni. `int valore()` e `double valore()` sono un errore di compilazione: la differenza deve stare nei parametri.

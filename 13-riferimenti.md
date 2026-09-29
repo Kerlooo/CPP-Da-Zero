@@ -19,7 +19,7 @@ Nel capitolo sulle [funzioni](10-funzioni.md) hai visto che una funzione riceve 
 Va benissimo quasi sempre, ma lascia scoperti due casi:
 
 1. La funzione **deve** modificare la variabile di chi la chiama.
-2. Il valore da passare è grosso (una stringa lunga, un array di mille elementi) e copiarlo a ogni chiamata è uno spreco.
+2. Il valore da passare è grosso (per esempio una stringa lunga) e copiarlo a ogni chiamata è uno spreco.
 
 I riferimenti risolvono entrambi.
 
@@ -143,7 +143,7 @@ Una sola `&` di differenza nella firma, due comportamenti opposti. `perValore` h
 
 ### Scambiare Due Variabili
 
-Lo scambio è l'esempio classico: senza riferimenti è impossibile scriverlo come funzione.
+Lo scambio è l'esempio classico: con il passaggio per valore non si può scrivere come funzione, perché la funzione scambierebbe solo le sue copie. Con i riferimenti sì (l'altro modo per farlo sono i puntatori, che vedrai nel prossimo capitolo).
 
 ```cpp
 #include <iostream>
@@ -225,7 +225,7 @@ Questa firma dice due cose insieme, e le dice a chi legge **e** al compilatore:
 | `&`      | Non viene fatta nessuna copia                     |
 | `const`  | La funzione non modificherà il valore ricevuto    |
 
-È esattamente la forma che hai già visto nell'esempio finale di [12-stringhe.md](12-stringhe.md), e in [11-array.md](11-array.md) nella variante `const int voti[]`.
+È esattamente la forma che hai già visto nell'esempio finale di [12-stringhe.md](12-stringhe.md). In [11-array.md](11-array.md) hai incontrato lo stesso uso di `const` in `const int voti[]`: lì non c'è nessuna `&`, perché gli array non vengono mai copiati, ma il `const` ha lo stesso ruolo di impedire le modifiche.
 
 ### La Regola Pratica
 
@@ -235,7 +235,7 @@ Questa firma dice due cose insieme, e le dice a chi legge **e** al compilatore:
 | Solo leggerlo, ed è un tipo grosso (`string`, contenitori) | `const string& x` |
 | Modificarlo                               | `string& x`      |
 
-Per un `int` il riferimento non conviene: copiare quattro byte costa quanto passare l'indirizzo, e la versione per valore si legge meglio.
+Per un `int` il riferimento non conviene: un `int` è così piccolo che copiarlo costa pochissimo, non più che passarlo per riferimento, e la versione per valore si legge meglio.
 
 > Nota: un riferimento `const` può legarsi anche a un valore scritto direttamente, cosa che un riferimento normale non può fare. `const int& r = 42;` è valido: il compilatore crea un valore temporaneo e lo tiene in vita finché serve al riferimento. È il motivo per cui `stampa("Ciao")` funziona anche se `"Ciao"` non è una variabile.
 
@@ -388,17 +388,6 @@ Media:   26.6667
 ```
 
 Una sola chiamata restituisce tre risultati, e la firma della funzione dice già tutto: `const int voti[]` si legge soltanto, `int&` e `double&` sono le uscite.
-
-## Riepilogo
-
-| Domanda                                           | Risposta                     |
-| ------------------------------------------------- | ---------------------------- |
-| Cos'è un riferimento                               | Un secondo nome per una variabile esistente |
-| Si può dichiarare senza inizializzarlo             | No                           |
-| Si può far puntare a un'altra variabile dopo       | No                           |
-| Può essere nullo o vuoto                           | No                           |
-| Serve per modificare un parametro dentro la funzione | Sì, `tipo&`                |
-| Serve per evitare copie costose                    | Sì, `const tipo&`            |
 
 ---
 

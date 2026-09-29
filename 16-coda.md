@@ -89,7 +89,7 @@ Il resto della divisione per `CAPACITA` è sempre un numero tra `0` e `CAPACITA 
 | `empty()`  | `quanti == 0`                                                |
 | piena?     | `quanti == CAPACITA`                                         |
 
-Ecco una sequenza con `CAPACITA` uguale a 5. Tra parentesi quadre gli elementi che fanno parte della coda, `.` indica un posto libero.
+Ecco una sequenza con `CAPACITA` uguale a 5. Tra parentesi quadre gli elementi che fanno parte della coda, `.` indica un posto che non fa parte della coda (il vecchio valore può esserci ancora, come nella pila, ma non conta più).
 
 | Operazione | `[0]` | `[1]` | `[2]` | `[3]` | `[4]` | `fronte` | `quanti` |
 | ---------- | ----- | ----- | ----- | ----- | ----- | -------- | -------- |
@@ -182,7 +182,7 @@ Gli elementi escono **nello stesso ordine** in cui sono entrati: è il FIFO. Con
 Nota quali parametri passano per riferimento: `push` modifica solo `quanti`, mentre `pop` modifica sia `fronte` che `quanti`.
 
 > [!WARNING]
-> Come per la pila, i controlli su coda piena (*overflow*) e coda vuota (*underflow*) sono indispensabili. Senza di essi `quanti` supererebbe `CAPACITA` e il `push` sovrascriverebbe elementi ancora in coda, oppure diventerebbe negativo.
+> Come per la pila, i controlli su coda piena (*overflow*) e coda vuota (*underflow*) sono indispensabili. Senza di essi, con la coda piena il `push` sovrascriverebbe elementi ancora in attesa; con la coda vuota il `pop` porterebbe `quanti` sotto zero.
 
 ## `std::queue`: la Coda della Libreria
 
@@ -328,6 +328,7 @@ int main() {
 
 **Esecuzione:**
 ```
+
 1. Nuovo cliente
 2. Chiama il prossimo
 3. Clienti in attesa
@@ -357,16 +358,6 @@ Nessun cliente in attesa
 Per brevità, nell'esecuzione il menu è mostrato solo la prima volta e sostituito da `...` nelle successive.
 
 > Nota: le graffe dopo `case 1:` servono perché dentro quel `case` viene dichiarata una variabile (`nome`). Senza graffe il compilatore segnala un errore, perché la variabile sarebbe visibile anche negli altri `case`, dove non è stata inizializzata.
-
-## Riepilogo
-
-| Concetto          | In breve                                                 |
-| ----------------- | -------------------------------------------------------- |
-| FIFO              | Il primo elemento inserito è il primo a uscire            |
-| Fronte            | Da dove escono gli elementi                               |
-| Fondo             | Dove entrano gli elementi                                 |
-| Array circolare   | Array usato come anello con `%`, per riusare i posti liberati |
-| `std::queue`      | Coda pronta: `push`, `pop`, `front`, `back`, `empty`, `size` |
 
 ---
 

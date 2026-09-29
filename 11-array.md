@@ -25,7 +25,7 @@ char lettere[5];        // 5 caratteri
 ```
 
 > [!WARNING]
-> La dimensione di un array dichiarato così deve essere un valore **noto al momento della compilazione**: un numero scritto direttamente o una costante `const`. Non può essere una variabile letta da tastiera.
+> La dimensione di un array dichiarato così deve essere un valore **noto al momento della compilazione**: un numero scritto direttamente o una costante `const` inizializzata con un numero scritto direttamente. Non può essere una variabile letta da tastiera, e nemmeno una `const` che prende il valore da una variabile letta da tastiera.
 > ```cpp
 > const int MAX = 50;
 > int valori[MAX];        // Corretto
@@ -59,7 +59,7 @@ int azzerato[5] = {};           // {0, 0, 0, 0, 0}
 Il contrario non è permesso: elencare più valori della dimensione dichiarata è un errore di compilazione.
 
 > [!WARNING]
-> Un array dichiarato senza inizializzazione **non** contiene zeri: contiene valori casuali, resti di quello che c'era in memoria prima.
+> Un array dichiarato dentro una funzione (come `main`) senza inizializzazione **non** contiene zeri: contiene valori imprevedibili, resti di quello che c'era in memoria prima. Leggerli è un errore, anche se il compilatore non te lo impedisce.
 > ```cpp
 > int voti[5];              // Contenuto imprevedibile
 > cout << voti[0];          // Stampa un numero qualsiasi
@@ -414,6 +414,8 @@ int main() {
 9	10	11	12
 ```
 
+Il `"\t"` è il carattere di **tabulazione**: come il tasto Tab, sposta il cursore alla colonna successiva, così i numeri restano allineati anche quando hanno un numero diverso di cifre. La barra rovesciata `\` dentro le virgolette non viene stampata: insieme alla lettera che la segue indica un carattere speciale.
+
 Il `cout << endl;` sta nel ciclo **esterno**: viene eseguito una volta per riga, dopo aver stampato tutte le sue colonne.
 
 ## Esempio Completo: Statistiche dei Voti
@@ -483,6 +485,8 @@ int trovaMinimo(const int voti[], int dimensione) {
     return minimo;
 }
 ```
+
+`NUMERO_VOTI` è dichiarata **fuori da tutte le funzioni**, in cima al file. Nel capitolo sulle [funzioni](10-funzioni.md) hai visto che quello che dichiari dentro una funzione esiste solo lì. Quello che dichiari fuori, invece, è visibile in tutto il file da quel punto in giù: `main` e le altre funzioni possono usarlo tutte. Si chiama costante **globale**, ed è comoda per valori fissi condivisi da tutto il programma come questo.
 
 **Esecuzione:**
 ```

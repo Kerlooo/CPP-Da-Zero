@@ -35,7 +35,7 @@ int main() {
 }
 ```
 
-A differenza degli array, una `string` non dichiarata non contiene spazzatura: nasce vuota.
+A differenza degli array, una `string` non inizializzata non contiene spazzatura: nasce vuota.
 
 ## Concatenazione
 
@@ -69,7 +69,9 @@ int main() {
 > string b = "3";
 > cout << a + b << endl;          // 53, non 8
 > ```
-> Attenzione anche a `"5" + "3"` scritto direttamente con le virgolette: quello è un **errore di compilazione**. Due letterali tra virgolette non sono ancora oggetti `string`, e il `+` fra loro non ha senso. Perché funzioni, almeno uno dei due deve essere una `string`.
+> Attenzione anche a `"5" + "3"` scritto direttamente con le virgolette: quello è un **errore di compilazione**. Due letterali tra virgolette non sono ancora `string`, e il `+` fra loro non ha senso. Perché funzioni, almeno uno dei due deve essere una `string`.
+>
+> Nelle catene di `+` conta ogni coppia, da sinistra a destra. `nome + " " + cognome` funziona perché la prima coppia contiene già una `string`. `"Ciao" + " " + nome`, invece, non compila: la prima coppia è fatta di due letterali, e l'errore arriva prima ancora di raggiungere `nome`.
 
 Un numero non si può concatenare direttamente a una stringa:
 
@@ -101,9 +103,9 @@ cout << parola.length() << endl;        // 14
 cout << parola.size() << endl;          // 14
 ```
 
-La sintassi `parola.length()` si chiama **chiamata a metodo**: una funzione che appartiene all'oggetto e si richiama con il punto.
+La sintassi `parola.length()` si chiama **chiamata a metodo**. Una `string` non è una semplice scatola con dentro un valore, come un `int`: porta con sé anche delle funzioni proprie, che lavorano sul suo contenuto. Una variabile fatta così si chiama **oggetto**, e le sue funzioni si chiamano **metodi**. Si richiamano scrivendo il nome della variabile, un punto e il nome del metodo.
 
-Per sapere se una stringa è vuota, `empty()` è più chiaro di un confronto con zero:
+Per sapere se una stringa è vuota, `empty()` è più chiaro di `parola.length() == 0`:
 
 ```cpp
 string vuota;
@@ -146,7 +148,7 @@ cout << parola[parola.length() - 1] << endl;    // o
 
 Come per gli array, l'operatore `[]` **non controlla i limiti**: `parola[100]` su una stringa di 4 caratteri non dà errore, dà comportamento imprevedibile.
 
-> Nota: esiste anche `parola.at(100)`, che fa la stessa cosa ma controlla l'indice e segnala l'errore invece di proseguire alla cieca. È più sicuro, e leggermente più lento.
+> Nota: esiste anche `parola.at(100)`, che fa la stessa cosa ma controlla l'indice. Se l'indice non è valido, il programma si ferma subito con un messaggio d'errore che contiene `std::out_of_range`, invece di proseguire alla cieca. È più sicuro, e leggermente più lento.
 
 ### Scorrere una Stringa
 
@@ -158,7 +160,7 @@ using namespace std;
 int main() {
     string parola = "Ciao";
 
-    for (int i = 0; i < parola.length(); i++) {
+    for (size_t i = 0; i < parola.length(); i++) {
         cout << i << ": " << parola[i] << endl;
     }
 
@@ -180,6 +182,8 @@ int main() {
 3: o
 C i a o
 ```
+
+L'indice è dichiarato `size_t` invece di `int`. `size_t` è un tipo intero **senza segno** (niente numeri negativi) pensato apposta per posizioni e dimensioni, ed è il tipo che restituisce `length()`. Con `int i` il programma funziona lo stesso, ma `g++ -Wall` avvisa che stai confrontando un intero con segno con uno senza segno. Usare `size_t` mette i due lati del confronto sullo stesso tipo.
 
 ## Leggere Stringhe da Tastiera
 
@@ -284,7 +288,7 @@ int main() {
 }
 ```
 
-`cin.ignore(...)` scarta tutto quello che resta sulla riga corrente, invio compreso. Serve `#include <limits>`.
+`cin.ignore(...)` scarta tutto quello che resta sulla riga corrente, invio compreso. Il secondo argomento, `'\n'`, è proprio il carattere "a capo" che viene inserito quando premi Invio: `ignore` scarta caratteri finché non incontra quello. Serve `#include <limits>`.
 
 > Nota: vedrai spesso scritto `cin.ignore();` senza argomenti, che scarta un solo carattere. Funziona nel caso semplice, ma se l'utente ha digitato qualcosa dopo il numero il buffer resta sporco. La forma lunga è quella che regge sempre.
 
@@ -295,7 +299,7 @@ int main() {
 | `length()` / `size()`    | Numero di caratteri                                     | `14`                          |
 | `empty()`                | `true` se la stringa è vuota                            | `false`                       |
 | `substr(inizio, quanti)` | Estrae una porzione                                     | `substr(0, 7)` → `"Program"`  |
-| `find("testo")`          | Posizione della prima occorrenza                        | `find("mm")` → `7`            |
+| `find("testo")`          | Posizione della prima occorrenza                        | `find("mm")` → `6`            |
 | `append("testo")`        | Aggiunge in coda (come `+=`)                            | —                             |
 | `clear()`                | Svuota la stringa                                       | `""`                          |
 | `insert(pos, "testo")`   | Inserisce testo in una posizione                        | —                             |
@@ -346,7 +350,7 @@ int main() {
 }
 ```
 
-> Nota: `find` restituisce un `size_t`, un tipo intero senza segno pensato per le dimensioni. Usarlo al posto di `int` evita i confronti anomali con `string::npos`, che è il numero senza segno più grande rappresentabile.
+> Nota: `find` restituisce un `size_t`, lo stesso tipo senza segno che hai usato per l'indice del ciclo. Usarlo al posto di `int` evita i confronti anomali con `string::npos`, che è il numero senza segno più grande rappresentabile.
 
 > [!WARNING]
 > Controlla sempre il risultato di `find` contro `string::npos` prima di usarlo. Se dai per scontato che il testo ci sia e non c'è, ti ritrovi a lavorare con una posizione senza senso.
@@ -364,7 +368,9 @@ if (a != b) { }         // Contenuto diverso?
 if (a < b) { }          // true: "mela" viene prima di "pera" in ordine alfabetico
 ```
 
-Il confronto `<` segue l'ordine dei codici dei caratteri, che corrisponde all'ordine alfabetico **solo per lettere dello stesso caso**. Tutte le maiuscole vengono prima di tutte le minuscole:
+Per capire come funziona `<` serve sapere una cosa: in memoria un `char` è un **numero**. Ogni carattere ha il suo codice, fissato dalla tabella **ASCII**: `'A'` vale 65, `'B'` 66, fino a `'Z'` che vale 90; `'a'` vale 97, fino a `'z'` che vale 122.
+
+Il confronto `<` segue l'ordine di questi codici, che corrisponde all'ordine alfabetico **solo per lettere dello stesso caso**. Tutte le maiuscole vengono prima di tutte le minuscole:
 
 ```cpp
 string x = "Zebra";
@@ -375,7 +381,7 @@ if (x < y) {
 }
 ```
 
-`'Z'` ha un codice più basso di `'a'`, quindi `"Zebra"` risulta "minore" di `"ape"`.
+`'Z'` (90) ha un codice più basso di `'a'` (97), quindi `"Zebra"` risulta "minore" di `"ape"`.
 
 ## Stringhe in Stile C
 
@@ -414,6 +420,8 @@ int main() {
 Nel codice che scrivi tu, usa `std::string`: gestisce la memoria da sola, cresce quando serve e non ti lascia sbagliare il conto del terminatore. Le stringhe in stile C vanno conosciute perché le incontrerai in codice più vecchio e in molte librerie di sistema.
 
 ## Esempio Completo: Analisi di una Frase
+
+> Nota: nei prototipi compare `const string&`. La `&` evita di copiare la stringa a ogni chiamata, il `const` garantisce che la funzione non la modifichi. Copiare una stringa lunga a ogni chiamata costa, e con `&` non succede. Il meccanismo dietro la `&` lo vedremo nel capitolo sui riferimenti: per ora basta sapere che è la forma consigliata per passare una stringa che va solo letta.
 
 ```cpp
 #include <iostream>
@@ -471,7 +479,7 @@ int contaParole(const string& testo) {
 string inverti(const string& testo) {
     string risultato;
 
-    for (int i = testo.length() - 1; i >= 0; i--) {
+    for (int i = static_cast<int>(testo.length()) - 1; i >= 0; i--) {
         risultato += testo[i];
     }
 
@@ -488,7 +496,9 @@ Parole:    3
 Invertita: ittut a oaiC
 ```
 
-> Nota: nei prototipi compare `const string&`. La `&` evita di copiare la stringa a ogni chiamata, il `const` garantisce che la funzione non la modifichi. Copiare una stringa lunga a ogni chiamata costa, e con `&` non succede. Il meccanismo dietro la `&` lo vedremo nel capitolo sui riferimenti: per ora basta sapere che è la forma consigliata per passare una stringa che va solo letta.
+> Nota: `contaParole` conta gli spazi e aggiunge uno, quindi presuppone parole separate da **un solo** spazio, senza spazi all'inizio o alla fine. Con `"Ciao  a tutti "` (due spazi dopo `Ciao` e uno in fondo) restituirebbe 5 invece di 3.
+
+In `inverti` l'indice è un `int`, non un `size_t`, perché il ciclo va all'indietro e si ferma quando `i` diventa `-1`: un tipo senza segno non può essere negativo, quindi la condizione `i >= 0` sarebbe sempre vera e il ciclo non finirebbe mai. Il `static_cast<int>` converte la lunghezza in `int` **prima** di sottrarre 1, così con una stringa vuota `i` parte da `-1` e il ciclo non viene eseguito neanche una volta.
 
 ---
 

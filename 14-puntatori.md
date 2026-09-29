@@ -8,7 +8,7 @@ Un **puntatore** è una variabile che contiene l'indirizzo di un'altra variabile
 
 La memoria del computer è una lunga fila di caselle numerate. Ogni casella tiene un byte, e ogni casella ha un **indirizzo**: un numero che dice dove si trova.
 
-Quando scrivi `int numero = 42;` succedono tre cose: il programma riserva 4 byte (la dimensione di un `int`, come hai visto con [`sizeof`](3-variabili.md)), ci scrive dentro `42`, e chiama quella zona `numero`.
+Quando scrivi `int numero = 42;` succedono tre cose: il programma riserva lo spazio di un `int` (di solito 4 byte, come hai visto con [`sizeof`](3-variabili.md)), ci scrive dentro `42`, e chiama quella zona `numero`.
 
 ```
 indirizzo:   1000   1004   1008   1012
@@ -42,7 +42,7 @@ int main() {
 
 L'indirizzo viene stampato in esadecimale, la notazione che hai visto in [3-variabili.md](3-variabili.md): è la forma standard per gli indirizzi perché è compatta.
 
-> Nota: l'indirizzo cambia a ogni esecuzione del programma, e sul tuo computer sarà diverso dal mio. Non ha nessun senso memorizzarlo o confrontarlo tra esecuzioni diverse: quello che conta è la relazione tra le variabili, non il numero preciso.
+> Nota: l'indirizzo cambia a ogni esecuzione del programma, e sul tuo computer sarà diverso dal mio. Anche il formato può cambiare da compilatore a compilatore: con Visual Studio, per esempio, esce senza `0x` e con zeri iniziali. Non ha nessun senso memorizzarlo o confrontarlo tra esecuzioni diverse: quello che conta è la relazione tra le variabili, non il numero preciso.
 
 > [!WARNING]
 > Attenzione a non confondere i due usi della `&`, già visti in [13-riferimenti.md](13-riferimenti.md):
@@ -167,7 +167,9 @@ if (p != nullptr) {
 }
 ```
 
-**Controlla sempre un puntatore prima di dereferenziarlo**, se non sei certo che sia valido. Dereferenziare `nullptr` fa crashare il programma — cosa che, per quanto sembri brutta, è molto meglio di leggere silenziosamente memoria sbagliata.
+**Controlla sempre un puntatore prima di dereferenziarlo**, se non sei certo che sia valido. Dereferenziare `nullptr`, in pratica, fa crashare il programma — cosa che, per quanto sembri brutta, è molto meglio di leggere silenziosamente memoria sbagliata.
+
+> Nota: per lo standard del C++ dereferenziare `nullptr` è **comportamento indefinito**: non è garantito niente. Sui sistemi comuni (Windows, Linux, macOS) in pratica il programma si ferma subito, ma non devi mai contarci.
 
 > Nota: nel codice più vecchio troverai `NULL` o `0` al posto di `nullptr`. Funzionano, ma `nullptr` (da C++11) è più sicuro perché è davvero un puntatore e non un numero mascherato. Nel codice nuovo usa sempre `nullptr`.
 
@@ -184,7 +186,7 @@ Fanno cose simili, ma non sono intercambiabili.
 | Aritmetica (spostarsi in memoria)   | No                        | Sì                         |
 | Sintassi                            | Più pulita                | Più esplicita              |
 
-**La regola pratica:** usa un riferimento quando puoi, un puntatore quando devi. Ti serve un puntatore quando la cosa puntata può legittimamente non esistere (`nullptr`), quando deve cambiare nel tempo, o quando lavori con la memoria dinamica.
+**La regola pratica:** usa un riferimento quando puoi, un puntatore quando devi. Ti serve un puntatore quando la cosa puntata può legittimamente non esistere (`nullptr`), quando deve cambiare nel tempo, o quando lavori con la memoria dinamica (la vediamo più avanti in questo capitolo).
 
 ```cpp
 void conRiferimento(int& n) { n = 99; }
@@ -207,7 +209,7 @@ Alla chiamata si vede la differenza principale: `conPuntatore(&y)` **dichiara** 
 
 Qui i due argomenti si incontrano, e si capisce perché in [11-array.md](11-array.md) un array passato a una funzione non viene copiato.
 
-**Il nome di un array è l'indirizzo del suo primo elemento.**
+**Nella maggior parte delle espressioni, il nome di un array si converte automaticamente nell'indirizzo del suo primo elemento.**
 
 ```cpp
 #include <iostream>
@@ -219,7 +221,7 @@ int main() {
     cout << numeri << endl;         // 0x7ffd... -> indirizzo del primo elemento
     cout << &numeri[0] << endl;     // lo stesso indirizzo
 
-    int* p = numeri;                // nessuna & : il nome è già un indirizzo
+    int* p = numeri;                // nessuna & : il nome si converte da solo in un indirizzo
 
     cout << *p << endl;             // 10 -> primo elemento
 
@@ -229,9 +231,11 @@ int main() {
 
 Quando passi un array a una funzione, quello che viaggia è questo indirizzo: quattro o otto byte, non l'intero array. Ecco perché la funzione lavora sull'originale e perché la dimensione va passata a parte — l'indirizzo da solo non dice quanti elementi seguono.
 
+> Nota: "si converte" non vuol dire "è". Con `sizeof` la differenza si vede: `sizeof(numeri)` vale 20 (5 `int` da 4 byte, di solito), mentre `sizeof(p)` vale 4 o 8, la dimensione di un indirizzo. Dentro una funzione il parametro è solo un puntatore, ed è per questo che lì non puoi ricavare quanti elementi ha l'array.
+
 ### Aritmetica dei Puntatori
 
-Sommare `1` a un puntatore non aggiunge un byte: lo sposta **all'elemento successivo**, qualunque sia la sua dimensione. Il compilatore sa che `p` è un `int*` e salta 4 byte per volta.
+Sommare `1` a un puntatore non aggiunge un byte: lo sposta **all'elemento successivo**, qualunque sia la sua dimensione. Il compilatore sa che `p` è un `int*` e salta ogni volta la dimensione di un `int` (di solito 4 byte).
 
 ```cpp
 #include <iostream>
@@ -277,6 +281,17 @@ p = nullptr;            // Buona abitudine: il puntatore non punta più a niente
 
 Quella memoria non ha un nome: l'unico modo per raggiungerla è il puntatore. Se perdi il puntatore, perdi la memoria.
 
+Con `new` e `delete` hai visto tutti i simboli dei puntatori. Eccoli uno accanto all'altro, perché è facile confonderli:
+
+| Scrittura     | Dove          | Significato                          |
+| ------------- | ------------- | ------------------------------------ |
+| `int* p;`     | dichiarazione | `p` è un puntatore a `int`            |
+| `&x`          | espressione   | l'indirizzo di `x`                    |
+| `*p`          | espressione   | il valore all'indirizzo contenuto in `p` |
+| `nullptr`     | valore        | puntatore che non punta a niente      |
+| `new int`     | espressione   | chiede memoria per un `int`           |
+| `delete p`    | istruzione    | restituisce la memoria                |
+
 ### Array Dinamici
 
 È l'uso più concreto: finalmente un array la cui dimensione la decide l'utente.
@@ -290,6 +305,11 @@ int main() {
 
     cout << "Quanti numeri? ";
     cin >> quantita;
+
+    if (quantita <= 0) {
+        cout << "Quantita non valida" << endl;
+        return 1;
+    }
 
     int* numeri = new int[quantita];        // dimensione decisa ora, non alla compilazione
 
@@ -322,7 +342,7 @@ Somma: 35
 ```
 
 > [!WARNING]
-> `new` va con `delete`, `new[]` va con `delete[]`. Scambiarli è un errore che il compilatore non segnala e che produce comportamenti imprevedibili.
+> `new` va con `delete`, `new[]` va con `delete[]`. Scambiarli è un errore che il compilatore spesso non riesce a segnalare e che produce comportamenti imprevedibili.
 
 ### Memory Leak
 
@@ -345,13 +365,13 @@ Su un programma che chiude subito non si nota. Su un programma che gira per ore 
 Il problema opposto: usare un puntatore **dopo** aver liberato la memoria.
 
 ```cpp
-int* p = new int(42);
+int* p = new int(42);   // new int(42): chiede un int e lo inizializza a 42
 delete p;               // la memoria è restituita
 
 cout << *p << endl;     // PERICOLO: p punta a memoria che non è più tua
 ```
 
-Un puntatore in questo stato si chiama **dangling pointer** (puntatore penzolante). Il programma spesso non crasha subito: legge quello che nel frattempo è finito lì, e sbaglia molto più avanti. Mettere `p = nullptr;` subito dopo il `delete` trasforma un bug silenzioso in un crash immediato, che è molto più facile da trovare.
+Un puntatore in questo stato si chiama **dangling pointer** (puntatore penzolante). Il programma spesso non crasha subito: legge quello che nel frattempo è finito lì, e sbaglia molto più avanti. Mettere `p = nullptr;` subito dopo il `delete` trasforma un bug silenzioso in un crash (in pratica) immediato, che è molto più facile da trovare.
 
 ## `const` e Puntatori
 
@@ -379,7 +399,7 @@ La prima forma, `const int*`, è di gran lunga la più usata: è il modo di dire
 | Errore | Conseguenza |
 | ------ | ----------- |
 | Dereferenziare un puntatore non inizializzato | Comportamento imprevedibile, spesso crash |
-| Dereferenziare `nullptr` | Crash immediato del programma |
+| Dereferenziare `nullptr` | Di solito crash immediato del programma |
 | Dimenticare `delete` | Memory leak |
 | Usare un puntatore dopo `delete` | Dati corrotti, crash ritardato |
 | `delete` due volte sullo stesso puntatore | Comportamento imprevedibile |
@@ -465,23 +485,12 @@ Massimo: 30
 
 Nota che `int numeri[]` e `int* numeri` come parametri di funzione sono la stessa identica cosa: la prima forma è solo un modo più leggibile di dire "qui arriva un array".
 
-## Riepilogo dei Simboli
-
-| Scrittura     | Dove          | Significato                          |
-| ------------- | ------------- | ------------------------------------ |
-| `int* p;`     | dichiarazione | `p` è un puntatore a `int`            |
-| `&x`          | espressione   | l'indirizzo di `x`                    |
-| `*p`          | espressione   | il valore all'indirizzo contenuto in `p` |
-| `nullptr`     | valore        | puntatore che non punta a niente      |
-| `new int`     | espressione   | chiede memoria per un `int`           |
-| `delete p`    | istruzione    | restituisce la memoria                |
-
 ## Cosa Viene Dopo
 
-Gestire `new` e `delete` a mano è faticoso e facile da sbagliare: basta un `return` anticipato o un errore a metà funzione per saltare il `delete`. Il C++ moderno risolve il problema in due modi, che incontrerai più avanti:
+Gestire `new` e `delete` a mano è faticoso e facile da sbagliare: basta un `return` anticipato o un errore a metà funzione per saltare il `delete`. Il C++ moderno risolve il problema in due modi:
 
-- I **contenitori** come `std::vector`, che gestiscono da soli la memoria di cui hanno bisogno.
-- Gli **smart pointer** (`unique_ptr`, `shared_ptr`), puntatori che chiamano `delete` automaticamente quando non servono più.
+- I **contenitori** come `std::vector`, che gestiscono da soli la memoria di cui hanno bisogno: li vedi nel prossimo capitolo.
+- Gli **smart pointer** (`unique_ptr`, `shared_ptr`), puntatori che chiamano `delete` automaticamente quando non servono più. Questa guida non li tratta, ma è utile sapere che esistono.
 
 Nel codice C++ di oggi `new` e `delete` scritti a mano sono rari. Vanno comunque capiti: sono il meccanismo su cui tutto il resto è costruito, e li incontrerai in qualsiasi codice esistente.
 

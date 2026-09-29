@@ -197,7 +197,9 @@ numeri.erase(numeri.begin());           // {15, 20, 40}
 
 Per adesso considera `v.begin() + i` come una formula da ricordare: significa "la posizione dell'elemento di indice `i`". `begin()` restituisce un **iteratore**, un oggetto simile a un puntatore che indica una posizione dentro il contenitore.
 
-> Nota: `insert` ed `erase` in mezzo sono **lenti** su vector grandi: per fare spazio (o chiudere il buco) devono spostare di un posto tutti gli elementi successivi. `push_back` e `pop_back` lavorano in fondo e non spostano niente, per questo sono le operazioni preferite.
+> Nota: `insert` ed `erase` in mezzo sono **lenti** su vector grandi: per fare spazio (o chiudere il buco) devono spostare di un posto tutti gli elementi successivi. `push_back` e `pop_back` lavorano in fondo e di solito non spostano niente, per questo sono le operazioni preferite.
+
+> Nota: il "di solito" è importante. Il vector tiene da parte un po' di spazio in più; quando anche quello finisce, `push_back` chiede un blocco di memoria più grande e ci trasferisce **tutti** gli elementi. Succede di rado, quindi in media `push_back` resta veloce. La conseguenza pratica: dopo un `push_back`, puntatori e riferimenti a elementi del vector (come quelli di [14-puntatori.md](14-puntatori.md)) possono non essere più validi, perché gli elementi potrebbero essersi spostati altrove.
 
 ## Scorrere un Vector
 
@@ -310,6 +312,9 @@ Nota che non serve più passare la dimensione come secondo parametro: la funzion
 Una funzione può anche **creare e restituire** un vector, cosa impossibile con gli array:
 
 ```cpp
+#include <vector>
+using namespace std;
+
 vector<int> primiN(int n) {
     vector<int> risultato;
 

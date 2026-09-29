@@ -1,6 +1,19 @@
 # If, Else e Else If in C++
 
-Le istruzioni condizionali permettono al programma di prendere decisioni e eseguire codice diverso in base a condizioni specifiche.
+Le istruzioni condizionali permettono al programma di prendere decisioni ed eseguire codice diverso in base a condizioni specifiche.
+
+## Operatori di Confronto
+
+Prima di usare `if`, devi conoscere gli operatori per creare condizioni:
+
+| Operatore | Significato       | Esempio | Risultato |
+|-----------|-------------------|---------|-----------|
+| `==`      | Uguale a          | `5 == 5`| `true`    |
+| `!=`      | Diverso da        | `5 != 3`| `true`    |
+| `>`       | Maggiore di       | `5 > 3` | `true`    |
+| `<`       | Minore di         | `5 < 3` | `false`   |
+| `>=`      | Maggiore o uguale | `5 >= 5`| `true`    |
+| `<=`      | Minore o uguale   | `5 <= 3`| `false`   |
 
 ## Struttura Base: `if`
 
@@ -38,8 +51,7 @@ Sei maggiorenne!
 
 ## `if` con `else`
 
-L'istruzione `else` esegue un blocco di codice se la condizion
- è **falsa**.
+L'istruzione `else` esegue un blocco di codice se la condizione è **falsa**.
 
 ### Sintassi
 
@@ -132,19 +144,6 @@ int main() {
 Voto: C (Sufficiente)
 ```
 
-## Operatori di Confronto
-
-Prima di usare `if`, devi conoscere gli operatori per creare condizioni:
-
-| Operatore | Significato       | Esempio | Risultato |
-|-----------|-------------------|---------|-----------|
-| `==`      | Uguale a          | `5 == 5`| `true`    |
-| `!=`      | Diverso da        | `5 != 3`| `true`    |
-| `>`       | Maggiore di       | `5 > 3` | `true`    |
-| `<`       | Minore di         | `5 < 3` | `false`   |
-| `>=`      | Maggiore o uguale | `5 >= 5`| `true`    |
-| `<=`      | Minore o uguale   | `5 <= 3`| `false`   |
-
 ## Operatori Logici
 
 Puoi combinare più condizioni usando operatori logici:
@@ -171,6 +170,8 @@ if (eta >= 18 && eta <= 65) {
 **Almeno una** delle condizioni deve essere `true`.
 
 ```cpp
+string giorno = "Sabato";
+
 if (giorno == "Sabato" || giorno == "Domenica") {
     cout << "E' weekend!" << endl;
 }
@@ -247,7 +248,7 @@ Puoi guidare!
 using namespace std;
 
 int main() {
-    int eta = 12;
+    int eta = 70;
     
     if (eta < 5 || eta > 65) {
         cout << "Hai diritto a uno sconto!" << endl;
@@ -286,6 +287,38 @@ int main() {
 ```
 Credenziali non valide. Riprova.
 ```
+
+## Errori Frequenti
+
+### `=` al Posto di `==`
+
+`=` **assegna** un valore, `==` **confronta** due valori. Scambiarli è l'errore più comune con l'`if`:
+
+```cpp
+int x = 3;
+
+if (x = 5) {        //  SBAGLIATO: assegna 5 a x, poi controlla il 5
+    cout << "x vale 5" << endl;     // stampato sempre, anche se x valeva 3
+}
+
+if (x == 5) {       //  GIUSTO: confronta x con 5
+    cout << "x vale 5" << endl;
+}
+```
+
+Con `if (x = 5)` la variabile cambia valore, e la condizione è sempre vera: un numero diverso da `0` vale `true`. Il programma compila lo stesso, ma `g++ -Wall` ti avvisa con un warning (*suggest parentheses around assignment*).
+
+### Il Punto e Virgola Dopo l'`if`
+
+```cpp
+if (eta >= 18);     //  il ; chiude l'if: il corpo è vuoto
+{
+    cout << "Sei maggiorenne!" << endl;     // stampato SEMPRE
+}
+```
+
+Il `;` termina l'`if` con un corpo vuoto. Il blocco tra graffe diventa un blocco qualsiasi, eseguito in ogni caso. Dopo `if (...)` non va mai il punto e virgola.
+
 > [!WARNING]
 > NB: Un `if` non ha per forza bisogno di un `else` ma un `else` deve sempre avere un `if` prima
 

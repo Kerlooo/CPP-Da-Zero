@@ -4,7 +4,7 @@ Prima di scrivere una sola riga di C++, serve capire una cosa: il computer **non
 
 Il codice che scrivi è testo, leggibile da un essere umano. Il processore invece esegue solo **linguaggio macchina**, una sequenza di numeri. Il **compilatore** è il programma che fa da traduttore tra i due mondi.
 
-```
+```text
 codice sorgente  ──[ compilatore ]──>  file eseguibile
   programma.cpp                         programma / programma.exe
    (testo)                              (linguaggio macchina)
@@ -18,7 +18,7 @@ La traduzione avviene in quattro fasi. Le lanci tutte con un solo comando, ma è
 
 | Fase | Nome | Cosa fa |
 | ---- | ---- | ------- |
-| 1 | **Preprocessore** | Esegue le righe che iniziano con `#`, come `#include`: incolla nel tuo file il contenuto delle librerie richieste |
+| 1 | **Preprocessore** | Esegue le righe che iniziano con `#`, come `#include`: incolla nel tuo file il contenuto dei *file header* richiesti (per esempio `<iostream>`), cioè l'elenco di ciò che la libreria mette a disposizione |
 | 2 | **Compilazione** | Traduce il C++ in assembly e controlla che il codice rispetti le regole del linguaggio |
 | 3 | **Assemblatore** | Converte l'assembly in codice macchina, creando un *file oggetto* |
 | 4 | **Linker** | Unisce i file oggetto e il codice delle librerie in un unico file eseguibile |
@@ -201,14 +201,14 @@ Le opzioni si aggiungono al comando, prima o dopo il nome del file.
 | Opzione        | A cosa serve                                                |
 | -------------- | ----------------------------------------------------------- |
 | `-o nome`      | Sceglie il nome dell'eseguibile                              |
-| `-Wall`        | Attiva **tutti gli avvisi**: segnala codice sospetto ma non illegale |
-| `-std=c++17`   | Compila secondo lo standard C++17                            |
+| `-Wall`        | Attiva i **principali avvisi** (nonostante il nome, non tutti): segnala codice sospetto ma non illegale |
+| `-std=c++23`   | Compila secondo lo standard C++23, il più recente            |
 | `-g`           | Include le informazioni di debug, necessarie al debugger      |
 
 Il comando consigliato mentre si impara:
 
 ```bash
-g++ -Wall -std=c++17 ciao.cpp -o ciao
+g++ -Wall -std=c++23 ciao.cpp -o ciao
 ```
 
 > Nota: `-Wall` è prezioso per un principiante. Gli **avvisi** (*warning*) non bloccano la compilazione, ma segnalano cose che quasi sicuramente sono errori: una variabile dichiarata e mai usata, un confronto sospetto, un valore mai restituito. Leggili sempre.
@@ -220,7 +220,7 @@ g++ -Wall -std=c++17 ciao.cpp -o ciao
 | `g++: command not found` / `'g++' non è riconosciuto` | Compilatore non installato o PATH non configurato | Rifai l'installazione; su Windows ricontrolla il PATH e riapri il terminale |
 | `No such file or directory` | Sei nella cartella sbagliata, o hai sbagliato il nome del file | Verifica con `ls` (o `dir`) che il file sia lì; attenzione a maiuscole e minuscole |
 | `comando non trovato` eseguendo il programma su Linux | Manca il `./` davanti al nome | Scrivi `./ciao` |
-| `undefined reference to 'main'` | Errore di **linking**: manca la funzione `main` | Controlla di aver scritto `int main()` |
+| `undefined reference to 'main'` (su Windows: `'WinMain'`) | Errore di **linking**: manca la funzione `main` | Controlla di aver scritto `int main()` |
 | `expected ';' before ...` | Errore di **compilazione**: punto e virgola mancante | Guarda la riga indicata **e quella sopra**: spesso il `;` manca alla precedente |
 
 > Nota: quando gli errori sono tanti, correggi **sempre il primo** e ricompila. Un solo errore all'inizio del file ne genera spesso una decina a cascata, che spariscono tutti insieme.
@@ -234,7 +234,7 @@ Questo è il punto da ricordare meglio di ogni altro:
 
 Il ciclo di lavoro è sempre lo stesso:
 
-```
+```text
 scrivi il codice  ->  compila  ->  esegui  ->  correggi  ->  ricompila  ->  ...
 ```
 

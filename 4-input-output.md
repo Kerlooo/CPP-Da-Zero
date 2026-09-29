@@ -81,6 +81,7 @@ Puoi concatenare più valori usando più `<<`:
 
 ```cpp
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
@@ -133,7 +134,7 @@ Ogni programma ha due uscite separate:
 
 Tenerli separati permette a chi usa il programma di **dividere** i due flussi. Da terminale puoi salvare in un file solo il risultato, lasciando che gli errori restino visibili a schermo:
 
-```
+```bash
 ./programma > risultato.txt
 ```
 
@@ -144,31 +145,6 @@ Con questo comando, tutto ciò che è passato da `cout` finisce dentro `risultat
 C'è una seconda differenza, più sottile. `cout` accumula il testo in una zona di memoria temporanea (il **buffer**) e lo scrive tutto insieme quando conviene, perché è più efficiente. `cerr` invece scrive **subito**, senza accumulare nulla.
 
 Questo conta molto quando un programma va in crash: il messaggio scritto con `cout` potrebbe essere ancora nel buffer e andare perso, mentre quello scritto con `cerr` è già uscito. Per segnalare un errore è esattamente il comportamento che vuoi.
-
-### Esempio Completo
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int numeratore, denominatore;
-
-    cout << "Inserisci numeratore e denominatore: ";
-    cin >> numeratore >> denominatore;
-
-    if (denominatore == 0) {
-        cerr << "Errore: divisione per zero" << endl;
-        return 1;   // valore diverso da 0 = il programma è terminato male
-    }
-
-    cout << "Risultato: " << (numeratore / denominatore) << endl;
-
-    return 0;
-}
-```
-
-Nota il `return 1` accanto al messaggio di errore: per convenzione `main` restituisce `0` quando tutto è andato bene e un valore diverso da zero quando qualcosa è fallito. Il messaggio su `cerr` spiega il problema alla persona, il valore di ritorno lo segnala al sistema operativo.
 
 ### Quando Usare l'Uno o l'Altro
 
@@ -195,7 +171,6 @@ L'operatore `>>` è chiamato **stream extraction operator** e riceve i dati dall
 
 ```cpp
 #include <iostream>
-using namespace std;
 
 int main() {
     int numero;
@@ -237,17 +212,63 @@ Puoi leggere più valori concatenando `>>`:
 
 ```cpp
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main() {
     int base, altezza;
     cout << "Inserisci base e altezza: ";
     cin >> base >> altezza;
+
+    cout << "Base: " << base << ", altezza: " << altezza << endl;
     
     return 0;
 }
 ```
+
+**Esecuzione:**
+```
+Inserisci base e altezza: 7 2
+Base: 7, altezza: 2
+```
+
+I valori si possono separare con uno spazio oppure premendo Invio dopo ciascuno: `cin` li legge nello stesso modo.
+
+> Nota: per lo stesso motivo, `cin >>` con una `string` legge **una sola parola**: si ferma al primo spazio. Se scrivi `Mario Rossi`, nella variabile finisce solo `Mario`. Per leggere una riga intera, spazi compresi, serve `getline`, che vedrai nel [capitolo sulle stringhe](12-stringhe.md).
+
+### Esempio Completo: `cout`, `cin` e `cerr` Insieme
+
+Ora che conosci anche `cin`, ecco un programma che usa tutti e tre i canali. Chiede due numeri e, se il secondo è zero, segnala l'errore su `cerr` invece di dividere.
+
+> Nota: l'`if` serve a eseguire un pezzo di codice solo se una condizione è vera: lo vedrai nel [capitolo 6](6-if-else.md). La divisione tra interi è spiegata nel [capitolo 5](5-operatori-aritmetici.md).
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int numeratore, denominatore;
+
+    cout << "Inserisci numeratore e denominatore: ";
+    cin >> numeratore >> denominatore;
+
+    if (denominatore == 0) {
+        cerr << "Errore: divisione per zero" << endl;
+        return 1;   // valore diverso da 0 = il programma è terminato male
+    }
+
+    cout << "Risultato: " << (numeratore / denominatore) << endl;
+
+    return 0;
+}
+```
+
+**Esecuzione:**
+```
+Inserisci numeratore e denominatore: 10 0
+Errore: divisione per zero
+```
+
+Nota il `return 1` accanto al messaggio di errore: per convenzione `main` restituisce `0` quando tutto è andato bene e un valore diverso da zero quando qualcosa è fallito. Il messaggio su `cerr` spiega il problema alla persona, il valore di ritorno lo segnala al sistema operativo.
 
 ---
 

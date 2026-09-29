@@ -1,24 +1,34 @@
 # Tipi di Variabili in C++
 
+Un programma ha bisogno di ricordare dei dati mentre lavora: un'età, un prezzo, un nome. Per farlo usa le **variabili**.
+
+Una **variabile** è uno spazio nella memoria del computer a cui dai un **nome**. Immaginala come una scatola con un'etichetta: dentro c'è un **valore**, che puoi leggere e cambiare. Ogni variabile ha anche un **tipo**, che stabilisce cosa può contenere (un numero intero, un numero con la virgola, un carattere...) e quanto spazio occupa.
+
+Lo spazio si misura in **byte**. Un byte è formato da 8 **bit**, e un bit è la cella più piccola della memoria: può valere solo `0` o `1`.
+
 In C++ esistono diversi tipi di variabili:
 | Tipo     | Descrizione                           | Dimensione | Intervallo                     |
 | -------- | ------------------------------------- | ---------- | ------------------------------ |
-| `int`    | Intero normale **signed**             | 4 byte     | ~ da -2 miliardi a +2 miliardi |
-| `float`  | Numero decimale a precisione singola  | 4 byte     | ~7 cifre decimali              |
-| `double` | Numero decimale a doppia precisione   | 8 byte     | ~15 cifre decimali             |
+| `int`    | Intero normale **signed** (con segno) | 4 byte     | ~ da -2 miliardi a +2 miliardi |
+| `float`  | Numero decimale, ~7 cifre precise     | 4 byte     | ~ da -3.4e38 a +3.4e38         |
+| `double` | Numero decimale, ~15 cifre precise    | 8 byte     | ~ da -1.8e308 a +1.8e308       |
 | `char`   | Singolo carattere (signed o unsigned) | 1 byte     | da -128 a 127 (o da 0 a 255)   |
 | `string` | Stringa di caratteri alfanumerici     | Variabile  | Dipende dal contenuto          |
 | `bool`   | Valore booleano                       | 1 byte     | `true` / `false`               |
 
-> Nota: Gli intervalli e le dimensioni possono variare in base all'architettura, ma quelli indicati sono quelli standard su macchine moderne. Un `bool` occupa un byte intero anche se gli basterebbe un singolo bit: è la dimensione minima indirizzabile in memoria. La dimensione di `string` non è fissa perché il testo viene conservato altrove, e cresce insieme al numero di caratteri.
+Le cifre precise di `float` e `double` dicono quante cifre significative il numero riesce a conservare senza errori: oltre quella soglia le cifre vengono approssimate. `3.4e38` si legge "3.4 per 10 alla 38".
+
+> Nota: Gli intervalli e le dimensioni possono variare in base all'architettura: lo standard fissa solo dei minimi, quelli indicati sono i valori tipici su macchine moderne. Un `bool` occupa un byte intero anche se gli basterebbe un singolo bit: è la dimensione minima indirizzabile in memoria.
+
+> Nota: `string` non è un tipo base del linguaggio ma arriva dalla libreria standard: per usarlo scrivi `#include <string>` in cima al file. La variabile `string` in sé ha una dimensione fissa (32 byte con `g++`), ma il testo vero viene conservato altrove, in uno spazio che cresce insieme al numero di caratteri.
 
 ## Tipi di `int`
 
 Le variabili `int` supportano dei modificatori come `signed`, `unsigned`, `short`, `long`. Questi valori modificano l'intervallo (la grandezza del numero inserito).
 | Tipo                 | Descrizione                 | Dimensione   | Intervallo (tipico)            |
 | -------------------- | --------------------------- | ------------ | ------------------------------ |
-| `short`              | Intero corto **signed**     | 2 byte       | da -32,768 a 32,767            |
-| `unsigned short`     | Intero corto **unsigned**   | 2 byte       | da 0 a 65,535                  |
+| `short`              | Intero corto **signed**     | 2 byte       | da -32.768 a 32.767            |
+| `unsigned short`     | Intero corto **unsigned**   | 2 byte       | da 0 a 65.535                  |
 | `int`                | Intero normale **signed**   | 4 byte       | ~ da -2 miliardi a +2 miliardi |
 | `unsigned int`       | Intero normale **unsigned** | 4 byte       | da 0 a ~4 miliardi             |
 | `long`               | Intero lungo **signed**     | 4 o 8 byte   | dipende dal sistema            |
@@ -26,7 +36,7 @@ Le variabili `int` supportano dei modificatori come `signed`, `unsigned`, `short
 | `long long`          | Intero lungo **signed**     | 8 byte       | da -9e18 a +9e18               |
 | `unsigned long long` | Intero lungo **unsigned**   | 8 byte       | da 0 a 18e18                   |
 
-Più byte occupa un tipo, più valori diversi riesce a rappresentare. Con `n` byte hai `8 × n` bit, e quindi `2^(8n)` combinazioni possibili: uno `short` (2 byte, 16 bit) arriva a 65,536 valori distinti, un `int` (4 byte, 32 bit) a poco più di 4 miliardi.
+Più byte occupa un tipo, più valori diversi riesce a rappresentare. Con `n` byte hai `8 × n` bit, e quindi `2^(8n)` combinazioni possibili: uno `short` (2 byte, 16 bit) arriva a 65.536 valori distinti, un `int` (4 byte, 32 bit) a poco più di 4 miliardi.
 
 La differenza tra `signed` e `unsigned` non cambia il numero di valori, ma dove li colloca: `signed` li divide tra negativi e positivi, `unsigned` li usa tutti a partire da zero. Ecco perché `short` e `unsigned short` occupano entrambi 2 byte ma hanno intervalli diversi.
 
@@ -116,7 +126,7 @@ char lettera = 'A';
 
 ### Inizializzazione con le Graffe (Modern C++)
 
-C++11 introduce un'altra sintassi usando le graffe `{}`:
+C++11 introduce un'altra sintassi usando le graffe `{}`. Il vantaggio è che il compilatore rifiuta le conversioni che perderebbero dati: `int x{3.5};` è un errore, mentre `int x = 3.5;` compila e salva `3` senza dire nulla.
 
 ```cpp
 int numero{42};
@@ -138,6 +148,7 @@ float a = 1.5, b = 2.5, c = 3.5;
 
 ```cpp
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
@@ -152,24 +163,40 @@ int main() {
     
     // Inizializzazione con graffe
     int anni_esperienza{5};
+
+    cout << "Nome: " << nome << endl;
+    cout << "Eta: " << eta << endl;
+    cout << "Altezza: " << altezza << endl;
+    cout << "Maggiorenne: " << maggiorenne << endl;   // un bool si stampa come 1 (true) o 0 (false)
+    cout << "Anni di esperienza: " << anni_esperienza << endl;
     
     return 0;
 }
 ```
 
+**Output:**
+```
+Nome: Alice
+Eta: 25
+Altezza: 1.75
+Maggiorenne: 1
+Anni di esperienza: 5
+```
+
 ### Regole Importanti
 
 - I nomi delle variabili iniziano con una **lettera o underscore** `_`
-- Contengono solo **lettere, numeri e underscore**
+- Contengono solo **lettere senza accenti** (`a`-`z`, `A`-`Z`), **numeri e underscore**
 - Non possono iniziare con un **numero**
 - Non possono contenere **spazi** o **caratteri speciali**
+- Non possono essere **parole riservate** del linguaggio, come `int`, `return` o `if`
 - C++ distingue tra **maiuscole e minuscole** (`eta` ≠ `Eta`)
 - Usa nomi **significativi** e leggibili
 
 **Esempi di nomi validi:**
 ```cpp
 int eta;
-int _counter;
+int contatore2;
 float prezzoProdotto;
 string nome_utente;
 ```
@@ -179,6 +206,7 @@ string nome_utente;
 int 1numero;        //  Inizia con un numero
 int nome utente;    //  Contiene uno spazio
 float prezzo-totale; //  Contiene un trattino
+int return;         //  È una parola riservata
 ```
 
 ## Il Tipo `auto`: Lo Deduce il Compilatore
@@ -218,7 +246,7 @@ auto x = 5;     // Corretto
 auto y;         // ERRORE: da cosa dovrebbe capire il tipo?
 ```
 
-È la stessa regola delle costanti `const`, per un motivo diverso: lì il valore non può cambiare, qui senza valore non esiste proprio un tipo.
+Più avanti in questo capitolo vedrai che la stessa regola vale per le costanti `const`, per un motivo diverso: lì il valore non potrà più cambiare, qui senza valore non esiste proprio un tipo.
 
 ### La Trappola delle Stringhe
 
@@ -239,6 +267,7 @@ int main() {
     auto nomeA = "Alice";               // const char*
     string nomeB = "Alice";             // std::string
 
+    cout << nomeA << endl;              // Alice - stamparla funziona
     cout << nomeB.length() << endl;     // 5
     // cout << nomeA.length() << endl;  // ERRORE: const char* non ha metodi
 
@@ -264,25 +293,17 @@ In pratica, per le stringhe conviene scrivere `string` per esteso.
 auto eta = 25;        // Poco utile: 'int eta = 25;' è altrettanto corto e più chiaro
 ```
 
-Il guadagno arriva quando il tipo è lungo o scomodo da scrivere, cosa che succede con gli strumenti della libreria standard che incontrerai più avanti (iteratori, contenitori). È anche molto comodo nel ciclo `for` range-based:
-
-```cpp
-int voti[5] = {28, 30, 24, 27, 30};
-
-for (auto voto : voti) {        // il compilatore sa già che sono int
-    cout << voto << " ";
-}
-```
+Il guadagno arriva quando il tipo è lungo o scomodo da scrivere, cosa che succede con gli strumenti della libreria standard che incontrerai più avanti (iteratori, contenitori), e nei cicli sugli array che vedrai nel capitolo 11.
 
 **La regola pratica mentre impari:** scrivi i tipi per esteso. Vedere `int`, `double` e `string` nel codice aiuta a fissare la differenza tra i tipi, che è esattamente quello che stai imparando in questo capitolo. Usa `auto` quando il tipo è lungo, ovvio o entrambe le cose.
 
-> Nota: `auto` esiste dal C++11. Con un compilatore molto vecchio, o compilando senza specificare lo standard, potrebbe non funzionare: aggiungi `-std=c++17` al comando di `g++`.
+> Nota: `auto` esiste dal C++11. Con `-std=c++23` (il comando consigliato nel capitolo 0) funziona sempre.
 
 ### Conoscere il Tipo di una Variabile
 
 Domanda naturale a questo punto: se lo decide il compilatore, io come faccio a sapere che tipo è?
 
-Prima di tutto, **`typeof()` non esiste in C++**. La trovi in molti esempi online, ma è un'estensione del compilatore GCC: `g++` la accetta, altri compilatori no. Non usarla.
+Prima di tutto, **`typeof()` non esiste in C++**. La trovi in molti esempi online, ma è un'estensione del compilatore GCC: `g++` la accetta solo se compili senza `-std`, perché in quel caso attiva le estensioni GNU. Con il comando consigliato (`-std=c++23`) dà errore, e anche altri compilatori la rifiutano. Non usarla.
 
 Gli strumenti veri sono due:
 
@@ -429,9 +450,8 @@ int main() {
     int a = 255;
     int b = 0xFF;
 
-    if (a == b) {
-        cout << "Sono lo stesso numero!" << endl;   // Questo viene stampato
-    }
+    cout << a << endl;   // 255
+    cout << b << endl;   // 255: cout stampa in decimale, qualunque prefisso tu abbia usato
 
     return 0;
 }
@@ -537,6 +557,9 @@ int main() {
     int da_decimale    = stoi("255");                     // 255 (base 10 di default)
 
     cout << da_esadecimale << endl;   // 255
+    cout << da_ottale      << endl;   // 255
+    cout << da_binario     << endl;   // 255
+    cout << da_decimale    << endl;   // 255
 
     return 0;
 }
@@ -551,6 +574,7 @@ Per il binario basta chiedere la stringa direttamente al `bitset`:
 ```cpp
 #include <bitset>
 #include <string>
+using namespace std;
 
 string testo = bitset<8>(5).to_string();   // "00000101"
 ```
@@ -573,23 +597,6 @@ int main() {
     return 0;
 }
 ```
-
-### Riepilogo
-
-| Cosa vuoi fare              | Come si fa                    | Cosa includere |
-| --------------------------- | ----------------------------- | -------------- |
-| Scrivere un letterale hex   | `0xFF`                        | niente         |
-| Scrivere un letterale ottale| `0377`                        | niente         |
-| Scrivere un letterale binario | `0b11111111` (C++14)        | niente         |
-| Stampare in esadecimale     | `cout << hex << n`            | `<iostream>`   |
-| Stampare in ottale          | `cout << oct << n`            | `<iostream>`   |
-| Tornare in decimale         | `cout << dec << n`            | `<iostream>`   |
-| Mostrare il prefisso        | `cout << showbase`            | `<iostream>`   |
-| Stampare in binario         | `cout << bitset<8>(n)`        | `<bitset>`     |
-| Da stringa a numero         | `stoi("FF", nullptr, 16)`     | `<string>`     |
-| Da numero a stringa binaria | `bitset<8>(n).to_string()`    | `<bitset>`     |
-| Da numero a stringa hex     | `ostringstream` + `hex`       | `<sstream>`    |
-
 
 ---
 

@@ -2,7 +2,7 @@
 
 Finora abbiamo visto **contenitori**: array e vector conservano dati e ti lasciano accedere a qualsiasi posizione. Una **struttura dati** come la pila aggiunge una regola: **non puoi** accedere dove vuoi, solo in un punto preciso.
 
-Sembra una limitazione, ed è proprio questo il punto: la regola rende il programma più semplice da ragionare e impossibile da usare nel modo sbagliato.
+Sembra una limitazione, ed è proprio questo il punto: la regola rende il programma più semplice da ragionare e più difficile da usare nel modo sbagliato.
 
 ## Il Concetto: LIFO
 
@@ -329,16 +329,6 @@ Ecco cosa succede alla pila con `{[a + (b)] * c}`, considerando solo le parentes
 | `}`       | cima `{` corrisponde, pop | *vuota*                   |
 
 Pila vuota alla fine: l'espressione è bilanciata.
-
-## Riepilogo
-
-| Concetto       | In breve                                            |
-| -------------- | --------------------------------------------------- |
-| LIFO           | L'ultimo elemento inserito è il primo a uscire       |
-| Cima           | L'unico elemento accessibile                         |
-| Overflow       | `push` su una pila piena (solo con array fisso)      |
-| Underflow      | `pop` o `top` su una pila vuota                      |
-| `std::stack`   | Pila pronta: `push`, `pop`, `top`, `empty`, `size`   |
 
 ---
 

@@ -74,7 +74,9 @@ int main() {
 > Nota: `(double)x` si chiama **cast**: converte temporaneamente il valore di `x` in `double` solo per quel calcolo. La variabile `x` resta un `int`. Alla sezione [Conversioni di Tipo](#conversioni-di-tipo) vedremo come funzionano nel dettaglio.
 
 > [!WARNING]
-> Dividere un intero per zero (`x / 0`) fa **crashare** il programma. Prima di dividere, controlla sempre che il divisore non sia zero.
+> Dividere un intero per zero (`x / 0`) è **comportamento indefinito**: lo standard non dice cosa succede. Prima di dividere, controlla sempre che il divisore non sia zero.
+
+> Nota: su un normale PC (processori x86) la divisione intera per zero di solito fa **crashare** il programma. Con i decimali invece non c'è crash: `1.0 / 0` dà `inf` (infinito), un valore speciale che poi si propaga in silenzio nei calcoli successivi.
 
 ## Conversioni di Tipo
 
@@ -102,7 +104,7 @@ int troncato = 9.99;      // vale 9, non 10
 int negativo = -3.7;      // vale -3, non -4
 ```
 
-> Nota: molti compilatori segnalano questi casi con un *warning*, non con un errore. Il programma compila lo stesso, ma il dato che hai perso non torna più indietro.
+> Nota: con `g++ -Wall` queste righe compilano **senza nessun avviso**. Per farti segnalare le conversioni che perdono dati devi aggiungere l'opzione `-Wconversion`. In ogni caso il programma compila lo stesso, e il dato che hai perso non torna più indietro.
 
 ### Conversioni Esplicite: `static_cast`
 
@@ -166,7 +168,7 @@ int main() {
 }
 ```
 
-Nella prima riga la divisione `7 / 9` avviene tra interi e vale `0`. Moltiplicare `0` per `100` dà `0`: il cast arrivato dopo, sul risultato, non serve a niente. La conversione va fatta **prima** della divisione, non dopo.
+Nella prima riga la divisione `7 / 9` avviene tra interi e vale `0`. Moltiplicare `0` per `100` dà `0`: la conversione a `double`, che avviene solo al momento dell'assegnazione, arriva troppo tardi. La conversione va fatta **prima** della divisione, non dopo.
 
 ## L'Operatore Modulo `%`
 
@@ -386,7 +388,7 @@ Arrotondato: 8
 
 ### Pi Greco
 
-C++ standard **non** definisce una costante per pi greco. Su alcuni compilatori esiste `M_PI`, ma non è garantita: se ti serve, dichiarala tu.
+Fino al C++17 lo standard **non** definisce una costante per pi greco. Su alcuni compilatori esiste `M_PI`, ma non è garantita. Dal C++20 esiste `std::numbers::pi` (con `#include <numbers>`), che compila con il comando consigliato nel [capitolo 0](0-compilatore.md) (`-std=c++23`). Se il tuo compilatore non la conosce, dichiarala tu.
 
 ```cpp
 const double PI = 3.14159265358979;

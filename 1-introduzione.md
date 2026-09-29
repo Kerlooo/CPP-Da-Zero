@@ -2,7 +2,7 @@
 
 ## Cos'è C++?
 
-C++ è un linguaggio di programmazione compilato, general-purpose, creato negli anni '80 da Bjarne Stroustrup come evoluzione del linguaggio C. È un linguaggio **molto potente** ma anche **complesso**, che offre un controllo molto fine sulla memoria e sulle risorse di sistema.
+C++ è un linguaggio di programmazione compilato, general-purpose (adatto a qualsiasi tipo di programma), creato negli anni '80 da Bjarne Stroustrup come evoluzione del linguaggio C. È un linguaggio **molto potente** ma anche **complesso**, che offre un controllo molto fine sulla memoria e sulle risorse di sistema.
 
 ## Linguaggio Compilato vs Interpretato
 
@@ -14,11 +14,11 @@ C++ è un linguaggio di programmazione compilato, general-purpose, creato negli 
 - **Errori**: Gli errori di sintassi vengono scoperti durante la compilazione
 
 ### Python (Interpretato)
-- **Interpretazione**: Il codice viene letto e eseguito **riga per riga** da un interprete in tempo reale
-- **Esecuzione**: L'interprete Python traduce il codice in bytecode e lo esegue
+- **Interpretazione**: Il codice non viene trasformato in un eseguibile: a ogni avvio lo legge un programma apposito, l'**interprete**
+- **Esecuzione**: L'interprete Python traduce il codice in bytecode (una forma intermedia, non codice macchina) e lo esegue passo dopo passo
 - **Velocità**: Più lento rispetto ai linguaggi compilati
 - **Distribuzione**: Devi distribuire il codice sorgente e l'utente deve avere Python installato
-- **Errori**: Gli errori vengono scoperti durante l'esecuzione (runtime)
+- **Errori**: La maggior parte degli errori viene scoperta durante l'esecuzione (runtime)
 
 ## Vantaggi e Svantaggi
 
@@ -28,7 +28,7 @@ C++ è un linguaggio di programmazione compilato, general-purpose, creato negli 
 | **Semplicità** | Complesso | Semplice e intuitivo |
 | **Controllo** | Totale sulla memoria | Gestione automatica |
 | **Curva di apprendimento** | Difficile | Veloce |
-| **Performance** | Ideale per programmi veloci e sicuri | Ideale per scripting, AI, data science |
+| **Performance** | Ideale per programmi veloci e vicini all'hardware | Ideale per scripting, AI, data science |
 
 ---
 

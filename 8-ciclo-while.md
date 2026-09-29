@@ -81,7 +81,7 @@ Perché un ciclo funzioni e finisca, servono sempre tre cose:
 | Condizione       | `i <= 5`     | Decidere quando fermarsi            |
 | Aggiornamento    | `i++;`       | Avvicinarsi alla fine a ogni giro   |
 
-Se ne manca uno, il ciclo non si ferma più.
+Se l'aggiornamento manca o è sbagliato, il ciclo può non fermarsi più. Se manca l'inizializzazione, il contatore parte da un valore imprevedibile e il ciclo fa un numero di giri a caso.
 
 ### Il Ciclo Infinito
 
@@ -107,7 +107,12 @@ while (i <= 5);     //  il ; chiude il while: il corpo è vuoto
 }
 ```
 
-Qui il `while` ripete "niente" all'infinito, e il blocco tra graffe non viene mai considerato parte del ciclo.
+Il `;` chiude il `while` con un corpo vuoto, e il blocco tra graffe non fa più parte del ciclo:
+
+- se la condizione è vera, il `while` ripete "niente" all'infinito (e `i` non cambia mai);
+- se è falsa, il ciclo vuoto finisce subito e il blocco sotto viene eseguito **una volta sola**, fuori dal ciclo.
+
+Il programma compila, ma `g++ -Wall` ti avvisa con un warning (*this 'while' clause does not guard...*): leggi sempre i warning.
 
 ## Ciclo `do-while`
 
@@ -226,6 +231,8 @@ Inserisci la tua eta (1-120): 30
 Hai 30 anni.
 ```
 
+> Nota: se l'utente scrive delle lettere invece di un numero, `cin` va in stato di errore e smette di leggere: il ciclo ristampa "Valore non valido" all'infinito. Per ora inserisci solo numeri; gestire questi errori richiede funzioni di `cin` (`cin.fail()`, `cin.clear()`) che vanno oltre questo capitolo.
+
 Con un `while` normale dovresti chiedere l'età **due volte** nel codice: una prima del ciclo (per avere qualcosa da controllare) e una dentro. Il `do-while` evita la ripetizione.
 
 ### Esempio: Ciclo con Sentinella
@@ -265,7 +272,7 @@ Inserisci dei numeri (0 per terminare)
 Somma totale: 18
 ```
 
-> Nota: la variabile `somma` si chiama **accumulatore**. Va sempre inizializzata **prima** del ciclo (a `0` per le somme, a `1` per i prodotti), altrimenti parte da un valore casuale.
+> Nota: la variabile `somma` si chiama **accumulatore**. Va sempre inizializzata **prima** del ciclo (a `0` per le somme, a `1` per i prodotti), altrimenti parte da un valore indeterminato (leggerlo è *comportamento indefinito*: il risultato non è prevedibile).
 
 ## Esempio Completo: Tabellina
 

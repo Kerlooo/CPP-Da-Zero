@@ -40,7 +40,7 @@ int main() {
 Ciclo terminato
 ```
 
-> Nota: `break` esce **solo dal ciclo**, non dal programma. Il codice scritto dopo il ciclo viene eseguito normalmente.
+> Nota: `break` esce **solo dal ciclo**, non dal programma. Il codice scritto dopo il ciclo viene eseguito normalmente. Per terminare l'intero programma dal `main` si usa `return 0;`.
 
 ### Quando Serve: Fermarsi Appena Trovato
 
@@ -235,20 +235,22 @@ while (i < 10) {
 }
 ```
 
-Versione corretta: aggiorna il contatore **prima** del `continue`.
+Versione corretta: aggiorna il contatore **anche prima** del `continue`.
 
 ```cpp
 int i = 0;
 
 while (i < 10) {
-    i++;                // aggiornato subito, il continue non può saltarlo
-
     if (i == 5) {
+        i++;            // aggiornato prima di saltare: il ciclo va avanti
         continue;
     }
     cout << i << endl;
+    i++;
 }
 ```
+
+Stampa i numeri da 0 a 9 saltando il 5, proprio come voleva il codice originale.
 
 > [!WARNING]
 > Questo è il motivo per cui, quando serve `continue`, il `for` è più sicuro del `while`.
@@ -320,15 +322,6 @@ int main() {
 2 x 1 = 2
 2 x 2 = 4
 ```
-
-## Riepilogo
-
-| Domanda                                            | Risposta    |
-| -------------------------------------------------- | ----------- |
-| Voglio fermare il ciclo per sempre                  | `break`     |
-| Voglio saltare solo questo giro                     | `continue`  |
-| Voglio uscire dal programma                         | né l'uno né l'altro (`return 0;` nel `main`) |
-| Sono in cicli annidati e voglio uscire da tutti     | `break` + variabile flag |
 
 > Nota: `break` e `continue` vanno usati con misura. Un ciclo pieno di uscite sparse diventa difficile da seguire: spesso una condizione scritta meglio è più chiara di tre `continue`.
 

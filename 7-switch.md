@@ -95,7 +95,7 @@ Default
 ```
 
 > [!WARNING]
-> Dimenticare il `break` è l'errore più comune con lo `switch`. Il compilatore **non segnala nessun errore**: il programma compila e fa una cosa diversa da quella che volevi.
+> Dimenticare il `break` è l'errore più comune con lo `switch`. Il compilatore **non segnala nessun errore**: il programma compila e fa una cosa diversa da quella che volevi. Solo compilando con `g++ -Wall -Wextra` ricevi un warning (*this statement may fall through*).
 
 ## Fallthrough Voluto: Più Valori, Stesso Codice
 
@@ -191,6 +191,37 @@ switch (comando) {      //  errore
 ```
 
 > Nota: per confrontare stringhe o intervalli di valori (`voto >= 90`), devi usare `if / else if`.
+
+### Variabili Dichiarate Dentro un `case`
+
+Se dichiari e inizializzi una variabile dentro un `case` senza graffe, il compilatore dà errore (*jump to case label*): gli altri `case` potrebbero "saltarci dentro" trovando la variabile esistente ma non inizializzata.
+
+```cpp
+switch (scelta) {
+    case 1:
+        int doppio = scelta * 2;    // la variabile nasce qui...
+        cout << doppio << endl;
+        break;
+    case 2:                         //  ...errore: jump to case label
+        cout << "Due" << endl;
+        break;
+}
+```
+
+La soluzione è racchiudere il codice del `case` tra **graffe**: la variabile esiste solo lì dentro.
+
+```cpp
+switch (scelta) {
+    case 1: {
+        int doppio = scelta * 2;    // OK: esiste solo tra queste graffe
+        cout << doppio << endl;
+        break;
+    }
+    case 2:
+        cout << "Due" << endl;
+        break;
+}
+```
 
 ## `switch` o `if / else if`?
 

@@ -55,7 +55,7 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-Il risultato è identico. Il `for` è preferibile perché è impossibile dimenticare l'aggiornamento: è lì in vista, dentro le parentesi.
+Il risultato è identico. Il `for` è preferibile perché è molto più difficile dimenticare l'aggiornamento: è lì in vista, dentro le parentesi.
 
 ## Ordine di Esecuzione
 
@@ -67,12 +67,16 @@ Il `for` non esegue le tre parti da sinistra a destra a ogni giro. L'ordine real
 4. `aggiornamento`
 5. torna al punto 2
 
-| Iterazione | `i` all'inizio | `i <= 3` | Stampa | Dopo `i++` |
+Con il ciclo dell'esempio, `for (int i = 1; i <= 5; i++)`:
+
+| Iterazione | `i` all'inizio | `i <= 5` | Stampa | Dopo `i++` |
 | ---------- | -------------- | -------- | ------ | ---------- |
 | 1          | 1              | `true`   | `1`    | 2          |
 | 2          | 2              | `true`   | `2`    | 3          |
 | 3          | 3              | `true`   | `3`    | 4          |
-| 4          | 4              | `false`  | —      | il ciclo finisce |
+| 4          | 4              | `true`   | `4`    | 5          |
+| 5          | 5              | `true`   | `5`    | 6          |
+| 6          | 6              | `false`  | —      | il ciclo finisce |
 
 > Nota: l'`aggiornamento` avviene **dopo** il corpo, non prima. Per questo la prima iterazione usa il valore iniziale intatto.
 
@@ -210,7 +214,7 @@ i=3 j=2
 
 Totale: 3 × 2 = **6 iterazioni**.
 
-> Nota: usa nomi diversi per i contatori (`i`, `j`, `k`). Riusare `i` in entrambi i cicli rompe il conteggio di quello esterno.
+> Nota: usa nomi diversi per i contatori (`i`, `j`, `k`). Se il ciclo interno usa la stessa `i` senza ridichiararla (`for (i = 1; ...)`), modifica il contatore di quello esterno e rompe il conteggio. Se la ridichiara con `int`, funziona, ma nasconde la `i` esterna e il codice diventa difficile da leggere.
 
 ### Esempio: Tutte le Tabelline
 
@@ -275,7 +279,7 @@ for (int i = 0; i < 5; i++);    //  il ; chiude il for: il corpo è vuoto
 }
 ```
 
-**Output:** `Ciao` (una volta invece di cinque). Il compilatore non segnala niente.
+**Output:** `Ciao` (una volta invece di cinque). Il programma compila, ma `g++ -Wall` ti avvisa con un warning (*this 'for' clause does not guard...*): leggi sempre i warning.
 
 ### L'Errore "Off by One"
 
@@ -336,6 +340,8 @@ Numero 3: 4
 Somma: 21
 Media: 7
 ```
+
+> Nota: se inserisci `0` come quantità, la divisione diventa `0.0 / 0` e il programma stampa `nan` (*not a number*, "non è un numero"), a volte con un `-` davanti a seconda del sistema. In un programma vero controlla prima che `quantita` sia maggiore di zero.
 
 ---
 

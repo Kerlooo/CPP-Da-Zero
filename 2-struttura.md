@@ -4,7 +4,7 @@
 
 ### 1. Include delle Librerie (Header Files)
 
-All'inizio del programma vanno inserite le **librerie `#include`** che importano le librerie necessarie.
+All'inizio del programma vanno inserite le direttive **`#include`**, che copiano nel tuo file il contenuto di un **file header**: un file che elenca (dichiara) le funzioni e gli oggetti offerti da una libreria.
 
 ```cpp
 #include <iostream>    // Libreria base per Input/Output
@@ -14,9 +14,9 @@ All'inizio del programma vanno inserite le **librerie `#include`** che importano
 
 **Tipi di include:**
 - `#include <libreria>` → Librerie standard del sistema (racchiuse tra `< >`)
-- `#include "mio_file.h"` → File custom nel tuo progetto (racchiuse tra `" "`)
+- `#include "mio_file.h"` → File custom nel tuo progetto (racchiusi tra `" "`)
 
-**Solo la libreria `iostream` è fondamentale**
+**Per ora ti basta `iostream`, che serve per `cout` e `cin`**
 
 ### 2. Using Namespace std
 
@@ -27,7 +27,7 @@ using namespace std;
 ```
 
 **Cosa significa?**
-- `std` è uno **namespace** (spazio dei nomi) che contiene tutte le funzioni e gli oggetti della libreria standard
+- `std` è un **namespace** (spazio dei nomi) che contiene tutte le funzioni e gli oggetti della libreria standard
 - Senza `using namespace std;`, dovresti scrivere `std::cout` invece di `cout`
 - Scrivere `using namespace std;` è comodo ma può causare conflitti in progetti grandi
 
@@ -37,7 +37,7 @@ La funzione `main()` è il **punto di ingresso** del programma. È qui che inizi
 
 ```cpp
 int main() {
-
+    return 0;
 }
 ```
 
@@ -95,7 +95,6 @@ cout << "Questa si" << endl;
 
 ```cpp
 #include <iostream>
-#include <vector>
 using namespace std;
 
 int main() {
