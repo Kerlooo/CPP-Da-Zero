@@ -46,6 +46,51 @@ int main() {
 - `main()` → Nome della funzione speciale riconosciuta dal compilatore
 - `return 0;` → Segnala al sistema che il programma è terminato correttamente
 
+### 4. I Commenti
+
+I **commenti** sono note scritte per chi legge il codice. Il compilatore li **ignora completamente**: non finiscono nel programma e non cambiano il suo comportamento.
+
+| Tipo           | Sintassi        | Dove finisce                                 |
+| -------------- | --------------- | -------------------------------------------- |
+| Su una riga    | `// testo`      | Alla fine della riga                          |
+| Su più righe   | `/* testo */`   | Al primo `*/`, anche parecchie righe dopo     |
+
+```cpp
+#include <iostream>
+using namespace std;
+
+/*
+   Questo programma stampa un saluto.
+   Un commento di questo tipo può occupare
+   tutte le righe che servono.
+*/
+int main() {
+    // Stampa il messaggio a schermo
+    cout << "Ciao!" << endl;
+
+    cout << "Fine" << endl;   // un commento può stare anche dopo il codice
+
+    return 0;
+}
+```
+
+**Output:**
+```
+Ciao!
+Fine
+```
+
+**A cosa servono:**
+- **Spiegare il perché** di una scelta, non ripetere quello che il codice dice già (`x = x + 1; // aggiungo 1 a x` non aggiunge nulla)
+- **Disattivare temporaneamente** una riga senza cancellarla: basta mettere `//` davanti
+
+```cpp
+// cout << "Questa riga non viene eseguita" << endl;
+cout << "Questa si" << endl;
+```
+
+> Nota: i commenti `/* */` non si possono annidare. In `/* esterno /* interno */ ancora */` il commento si chiude al **primo** `*/`, e `ancora */` viene letto come codice, causando un errore di compilazione.
+
 ### Struttura Completa di un Programma
 
 ```cpp

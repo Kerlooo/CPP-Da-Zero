@@ -29,6 +29,8 @@ Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di q
 12. [Stringhe](../12-stringhe.md)
 13. [Riferimenti](../13-riferimenti.md)
 14. [Puntatori](../14-puntatori.md)
+15. [Vector](../15-vector.md)
+16. [Pila (Stack)](../16-pila.md) e [Coda (Queue)](../16-coda.md) (**sono due link separati**)
 
 
 ## Star History

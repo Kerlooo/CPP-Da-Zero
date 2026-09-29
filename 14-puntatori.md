@@ -487,4 +487,4 @@ Nel codice C++ di oggi `new` e `delete` scritti a mano sono rari. Vanno comunque
 
 ---
 
-⬅️ [Precedente: Riferimenti](13-riferimenti.md) | [📚 Indice](.github/README.md)
+⬅️ [Precedente: Riferimenti](13-riferimenti.md) | [📚 Indice](.github/README.md) | [Successivo: Vector](15-vector.md) ➡️

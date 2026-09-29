@@ -173,7 +173,6 @@ Lo `switch` non funziona con qualsiasi tipo: accetta solo valori che il computer
 | `int`, `short`, `long` | Sì     | Sono interi |
 | `char`              | Sì        | Internamente è un numero (il codice del carattere) |
 | `bool`              | Sì        | Vale 0 o 1 (ma con due soli casi conviene l'`if`) |
-| `enum`              | Sì        | È una lista di costanti intere |
 | `float`, `double`   | No        | Errore di compilazione |
 | `string`            | No        | Errore di compilazione |
 
