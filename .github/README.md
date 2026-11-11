@@ -31,6 +31,7 @@ Tutti i contenuti di questa guida sono **scritti a mano da me**, sulla base di q
 14. [Puntatori](../14-puntatori.md)
 15. [Vector](../15-vector.md)
 16. [Pila (Stack)](../16-pila.md) e [Coda (Queue)](../16-coda.md) (**sono due link separati**)
+17. [Stack, heap e memoria](../17-memoria.md)
 
 
 ## Star History

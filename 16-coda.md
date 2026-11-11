@@ -361,4 +361,4 @@ Per brevità, nell'esecuzione il menu è mostrato solo la prima volta e sostitui
 
 ---
 
-⬅️ [Precedente: Pila (Stack)](16-pila.md) | [📚 Indice](.github/README.md)
+⬅️ [Precedente: Pila (Stack)](16-pila.md) | [📚 Indice](.github/README.md) | [Successivo: Stack, heap e memoria](17-memoria.md) ➡️
